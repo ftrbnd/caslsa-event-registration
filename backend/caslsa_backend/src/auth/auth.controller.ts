@@ -20,16 +20,19 @@ import { CreateUserDto } from './dto/create-user.dto';
 export class AuthController {
   constructor(private authService: AuthService) {}
 
+  // Create an account, can only create basic user account
   @Post('/register')
   async register(@Body() createUserDto: CreateUserDto) {
     return await this.authService.createUser(createUserDto);
   }
 
+  // login with an existing account, give a token back
   @Post('/login')
   async login(@Body() authCredentialsDto: AuthCredentialsDto) {
     return { token: await this.authService.loginUser(authCredentialsDto) };
   }
 
+  // Get information of the user related to the bearer token provided
   @ApiBearerAuth()
   @Get('/user')
   @Roles(Role.Admin, Role.User)
@@ -38,6 +41,7 @@ export class AuthController {
     return await this.authService.getUser(request);
   }
 
+  // Get a list of all the users (Only for admin)
   @ApiBearerAuth()
   @Get('/users')
   @Roles(Role.Admin)
@@ -46,6 +50,7 @@ export class AuthController {
     return await this.authService.getUsers();
   }
 
+  // Delete the user related to the email given (Only admin)
   @ApiBearerAuth()
   @Delete('/user')
   @Roles(Role.Admin)
