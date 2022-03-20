@@ -10,7 +10,9 @@ import { Role } from 'src/core/enums/role.enum';
 import { AuthCredentialsDto } from './dto/auth-credentials.dto';
 import { AuthEmailDto } from './dto/auth-email.dto';
 import { CreateUserDto } from './dto/create-user.dto';
+import { PartialUpdateAccountDto } from './dto/update-account.dto';
 import { UpdateRoles } from './dto/update-roles.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './user.model';
 
 @Injectable()
@@ -103,6 +105,64 @@ export class AuthService {
         .catch((e) => {
           console.log(e);
           reject(new UnauthorizedException());
+        });
+    });
+  }
+
+  async updateAccount(request, updatedUser: PartialUpdateAccountDto) {
+    if (request.user) {
+      return new Promise((resolve, reject) => {
+        this.userModel
+          .findOneAndUpdate(
+            { email: request.user },
+            { email: updatedUser.email, name: updatedUser.name },
+          )
+          .then((r) => {
+            if (r) resolve('Account updated');
+            else reject(new BadRequestException('User doesnt exist'));
+          })
+          .catch((e) => {
+            console.log(e);
+            reject(new UnauthorizedException());
+          });
+      });
+    } else {
+      throw new UnauthorizedException();
+    }
+  }
+
+  async deleteOwnAccount(request) {
+    if (request.user) {
+      return new Promise((resolve, reject) => {
+        this.userModel
+          .findOneAndDelete({ email: request.user })
+          .then((r) => {
+            if (r) resolve('Account deleted');
+            else reject(new BadRequestException('User doesnt exist'));
+          })
+          .catch((e) => {
+            console.log(e);
+            throw new UnauthorizedException();
+          });
+      });
+    } else {
+      throw new UnauthorizedException();
+    }
+  }
+
+  async updateUser(user: UpdateUserDto) {
+    const email = user.email;
+    delete user.email;
+    return new Promise((resolve, reject) => {
+      this.userModel
+        .findOneAndUpdate({ email }, user)
+        .then((r) => {
+          if (r) resolve('User updated');
+          else reject(new BadRequestException('User doesnt exist'));
+        })
+        .catch((e) => {
+          console.log(e);
+          throw new UnauthorizedException();
         });
     });
   }
