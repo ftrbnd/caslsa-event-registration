@@ -9,7 +9,7 @@ import { AuthModule } from './auth/auth.module';
   imports: [
     ConfigModule.forRoot(),
     MongooseModule.forRoot(
-      `mongodb+srv://${process.env.USERNAME}:${process.env.PASSWORD}@caslsa-events.yrf7k.mongodb.net/caslsa-events?retryWrites=true&w=majority`,
+      `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@caslsa-events.yrf7k.mongodb.net/caslsa-events?retryWrites=true&w=majority`,
     ),
     AuthModule,
   ],
