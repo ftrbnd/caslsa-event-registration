@@ -3,11 +3,12 @@ import {
   Controller,
   Delete,
   Get,
+  Patch,
   Post,
   Req,
   UseGuards,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiBody } from '@nestjs/swagger';
+import { ApiBearerAuth } from '@nestjs/swagger';
 import { Roles } from 'src/core/decorators/role.decorator';
 import { Role } from 'src/core/enums/role.enum';
 import { JwtAuthGuard } from 'src/core/guards/jwt-auth.guard';
@@ -15,6 +16,7 @@ import { AuthService } from './auth.service';
 import { AuthCredentialsDto } from './dto/auth-credentials.dto';
 import { AuthEmailDto } from './dto/auth-email.dto';
 import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateRoles } from './dto/update-roles.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -57,5 +59,14 @@ export class AuthController {
   @UseGuards(JwtAuthGuard)
   async deleteUser(@Body() auth: AuthEmailDto) {
     return await this.authService.deleteUser(auth);
+  }
+
+  // Update account roles (Only admin)
+  @ApiBearerAuth()
+  @Patch('/roles')
+  @Roles(Role.Admin)
+  @UseGuards(JwtAuthGuard)
+  async updateRoles(@Body() user: UpdateRoles) {
+    return await this.authService.updateRoles(user);
   }
 }

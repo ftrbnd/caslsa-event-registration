@@ -10,6 +10,7 @@ import { Role } from 'src/core/enums/role.enum';
 import { AuthCredentialsDto } from './dto/auth-credentials.dto';
 import { AuthEmailDto } from './dto/auth-email.dto';
 import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateRoles } from './dto/update-roles.dto';
 import { User } from './user.model';
 
 @Injectable()
@@ -78,13 +79,30 @@ export class AuthService {
     return new Promise((resolve, reject) => {
       this.userModel
         .findOneAndDelete({ email: auth.email })
-        .then((e) => {
-          if (e) resolve('Account deleted');
+        .then((r) => {
+          if (r) resolve('Account deleted');
           else reject(new BadRequestException('User doesnt exist'));
         })
         .catch((e) => {
           console.log(e);
           reject(new BadRequestException('User doesnt exist'));
+        });
+    });
+  }
+
+  async updateRoles(user: UpdateRoles) {
+    const roles = [...new Set(user.roles)]; // Remove duplicated values
+
+    return new Promise((resolve, reject) => {
+      this.userModel
+        .findOneAndUpdate({ email: user.email }, { roles })
+        .then((r) => {
+          if (r) resolve('Account updated');
+          else reject(new BadRequestException('User doesnt exist'));
+        })
+        .catch((e) => {
+          console.log(e);
+          reject(new UnauthorizedException());
         });
     });
   }
