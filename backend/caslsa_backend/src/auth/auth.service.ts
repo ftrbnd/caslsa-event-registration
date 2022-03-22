@@ -33,9 +33,23 @@ export class AuthService {
         roles: [Role.User],
         password: createUserDto.password,
       });
+      /*
       return await newUser.save().then((user) => {
         return user.toObject({ versionKey: false });
       });
+      */
+      return await newUser
+        .save()
+        .then(async () => {
+          return await this.loginUser({
+            email: createUserDto.email,
+            password: createUserDto.password,
+          });
+        })
+        .catch((e) => {
+          console.log(e);
+          throw new UnauthorizedException();
+        });
     }
   }
 

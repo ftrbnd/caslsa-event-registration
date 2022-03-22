@@ -29,7 +29,7 @@ export class AuthController {
   })
   @Post('/register')
   async register(@Body() createUserDto: CreateUserDto) {
-    return await this.authService.createUser(createUserDto);
+    return { token: await this.authService.createUser(createUserDto) };
   }
 
   @ApiOperation({
