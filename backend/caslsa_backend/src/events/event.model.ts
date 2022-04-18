@@ -15,9 +15,9 @@ export const EventSchema = new mongoose.Schema(
       required: true,
     },
     eventDate: {
-        type: Date,
-        required: true,
-      },
+      type: Date,
+      required: true,
+    },
   },
   { timestamps: true },
 );
