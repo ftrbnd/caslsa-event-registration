@@ -32,12 +32,11 @@ export class AuthService {
         name: createUserDto.name,
         roles: [Role.User],
         password: createUserDto.password,
+        memberType: createUserDto.memberType,
+        agencyId: createUserDto.agencyId,
+        gender: createUserDto.gender,
+        birthdate: createUserDto.birthdate,
       });
-      /*
-      return await newUser.save().then((user) => {
-        return user.toObject({ versionKey: false });
-      });
-      */
       return await newUser
         .save()
         .then(async () => {
@@ -77,7 +76,9 @@ export class AuthService {
 
   async getUser(request) {
     if (request.user) {
-      const user = await this.userModel.findOne({ email: request.user });
+      const user = await this.userModel
+        .findOne({ email: request.user })
+        .select('-password');
       if (!user) throw new UnauthorizedException();
       return user.toObject({ versionKey: false });
     } else {
@@ -86,7 +87,7 @@ export class AuthService {
   }
 
   async getUsers() {
-    return this.userModel.find();
+    return await this.userModel.find().select('-password');
   }
 
   async deleteUser(auth: AuthEmailDto) {
@@ -127,10 +128,7 @@ export class AuthService {
     if (request.user) {
       return new Promise((resolve, reject) => {
         this.userModel
-          .findOneAndUpdate(
-            { email: request.user },
-            { email: updatedUser.email, name: updatedUser.name },
-          )
+          .findOneAndUpdate({ email: request.user }, updatedUser)
           .then((r) => {
             if (r) resolve('Account updated');
             else reject(new BadRequestException('User doesnt exist'));

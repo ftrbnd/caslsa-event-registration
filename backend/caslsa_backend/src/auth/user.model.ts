@@ -1,6 +1,8 @@
 import * as mongoose from 'mongoose';
 import * as bcrypt from 'bcrypt';
 import { Role } from '../core/enums/role.enum';
+import { MemberType } from 'src/core/enums/member-type.enum';
+import { Gender } from 'src/core/enums/gender.enum';
 
 export const UserSchema = new mongoose.Schema(
   {
@@ -20,6 +22,20 @@ export const UserSchema = new mongoose.Schema(
     roles: {
       type: [],
       default: [Role.User],
+    },
+    gender: {
+      type: String,
+      enum: Gender,
+    },
+    birthdate: {
+      type: Date,
+    },
+    memberType: {
+      type: String,
+      enum: MemberType,
+    },
+    agencyId: {
+      type: Number,
     },
   },
   { timestamps: true },
@@ -52,4 +68,8 @@ export interface User extends mongoose.Document {
   name: string;
   password: string;
   roles: Role[];
+  gender: Gender;
+  birthdate: Date;
+  memberType: MemberType;
+  agencyId: number;
 }
