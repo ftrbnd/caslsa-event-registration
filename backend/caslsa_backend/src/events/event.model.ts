@@ -1,3 +1,4 @@
+import { Type } from '@nestjs/common';
 import * as mongoose from 'mongoose';
 
 export const EventSchema = new mongoose.Schema(
@@ -18,6 +19,9 @@ export const EventSchema = new mongoose.Schema(
       type: Date,
       required: true,
     },
+    users: {
+      type: [],
+    },
   },
   { timestamps: true },
 );
@@ -28,4 +32,5 @@ export interface Event extends mongoose.Document {
   eventGroup: string;
   eventName: string;
   eventDate: Date;
+  users: string[];
 }

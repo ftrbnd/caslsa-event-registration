@@ -37,6 +37,9 @@ export const UserSchema = new mongoose.Schema(
     agencyId: {
       type: Number,
     },
+    events: {
+      type: [],
+    },
   },
   { timestamps: true },
 );
@@ -72,4 +75,5 @@ export interface User extends mongoose.Document {
   birthdate: Date;
   memberType: MemberType;
   agencyId: number;
+  events: string[];
 }

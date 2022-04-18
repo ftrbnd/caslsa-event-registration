@@ -6,12 +6,19 @@ import {
   Param,
   Patch,
   Post,
+  Req,
+  UseGuards,
 } from '@nestjs/common';
 import { EventsService } from './events.service';
-import { ApiOperation } from '@nestjs/swagger';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
+import { Roles } from 'src/core/decorators/role.decorator';
+import { Role } from 'src/core/enums/role.enum';
+import { JwtAuthGuard } from 'src/core/guards/jwt-auth.guard';
+import { request } from 'http';
 
+@ApiTags('Event')
 @Controller('events')
 export class EventsController {
   constructor(private readonly eventsService: EventsService) {}
@@ -56,5 +63,25 @@ export class EventsController {
   async removeEvent(@Param('id') eventId: string) {
     await this.eventsService.deleteEvent(eventId);
     return null;
+  }
+
+  @ApiOperation({
+    summary: 'Subscribe to an event',
+  })
+  @Post('/subscribe/:id')
+  @Roles(Role.Admin, Role.User)
+  @UseGuards(JwtAuthGuard)
+  async subscribe(@Req() request, @Param('id') eventId: string) {
+    return await this.eventsService.subscribeToEvent(request.user, eventId);
+  }
+
+  @ApiOperation({
+    summary: 'Unsubscribe to an event',
+  })
+  @Post('/unsubscribe/:id')
+  @Roles(Role.Admin, Role.User)
+  @UseGuards(JwtAuthGuard)
+  async unsubscribe(@Req() request, @Param('id') eventId: string) {
+    return await this.eventsService.unsubscribeToEvent(request.user, eventId);
   }
 }

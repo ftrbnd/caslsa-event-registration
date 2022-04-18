@@ -36,6 +36,7 @@ export class AuthService {
         agencyId: createUserDto.agencyId,
         gender: createUserDto.gender,
         birthdate: createUserDto.birthdate,
+        events: [],
       });
       return await newUser
         .save()
