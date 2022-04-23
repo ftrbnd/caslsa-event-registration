@@ -16,7 +16,6 @@ import { UpdateEventDto } from './dto/update-event.dto';
 import { Roles } from 'src/core/decorators/role.decorator';
 import { Role } from 'src/core/enums/role.enum';
 import { JwtAuthGuard } from 'src/core/guards/jwt-auth.guard';
-import { request } from 'http';
 
 @ApiTags('Event')
 @Controller('events')
@@ -53,7 +52,7 @@ export class EventsController {
   })
   @Patch(':id')
   async updateEvent(@Body() updateEventDto: UpdateEventDto) {
-    return { token: await this.eventsService.updateEvent(updateEventDto) };
+    return { id: await this.eventsService.updateEvent(updateEventDto) };
   }
 
   @ApiOperation({
@@ -62,7 +61,7 @@ export class EventsController {
   @Delete(':id')
   async removeEvent(@Param('id') eventId: string) {
     await this.eventsService.deleteEvent(eventId);
-    return null;
+    return { success: 'Event deleted.' };
   }
 
   @ApiOperation({
