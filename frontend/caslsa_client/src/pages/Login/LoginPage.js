@@ -35,7 +35,7 @@ function LoginPage() {
   }
 
   if (loggedIn) {
-    return <Navigate to="/profile" />;
+    return <Navigate to="/home" />;
   }
 
   return (

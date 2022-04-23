@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./Header.css";
 
 export const Header = () => {
@@ -10,18 +11,18 @@ export const Header = () => {
             <p className="title">CALSA</p>
           </div>
           <div className="col-9 linkContainer">
-            <a className="link" href="/home">
+            <Link className="link" to="/home">
               Home
-            </a>
-            <a className="link" href="/events">
+            </Link>
+            <Link className="link" to="/events">
               Events
-            </a>
-            <a className="link" href="/profile">
+            </Link>
+            <Link className="link" to="/profile">
               Profile
-            </a>
-            <a className="link" href="/">
+            </Link>
+            <Link className="link" to="/">
               Log out
-            </a>
+            </Link>
           </div>
         </div>
       </div>
