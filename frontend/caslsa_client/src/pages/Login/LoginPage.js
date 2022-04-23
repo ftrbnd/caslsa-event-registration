@@ -1,25 +1,25 @@
 import { Button, TextField } from "@mui/material";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./LoginStyles.css";
 import { useSelector } from "react-redux";
 import store from "../../redux/store";
 import { LOGIN } from "../../redux/actionTypes/auth";
-import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import usePrevious from "../../hooks/usePrevious";
 
 function LoginPage() {
   const emailRef = useRef();
   const passwordRef = useRef();
-  const navigate = useNavigate();
 
   const { isLoadingLogin, errorLogin, token } = useSelector(
     (state) => state.auth
   );
+  const [loggedIn, setLoggedIn] = useState(false);
   const previousLoading = usePrevious(isLoadingLogin);
 
   useEffect(() => {
     if (previousLoading === true && !errorLogin && token) {
-      navigate("/home");
+      setLoggedIn(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoadingLogin, errorLogin]);
@@ -32,6 +32,10 @@ function LoginPage() {
         password: passwordRef.current.value,
       },
     });
+  }
+
+  if (loggedIn) {
+    return <Navigate to="/profile" />;
   }
 
   return (
