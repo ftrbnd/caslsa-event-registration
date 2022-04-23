@@ -8,7 +8,7 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Roles } from 'src/core/decorators/role.decorator';
 import { Role } from 'src/core/enums/role.enum';
 import { JwtAuthGuard } from 'src/core/guards/jwt-auth.guard';
@@ -20,6 +20,7 @@ import { PartialUpdateAccountDto } from './dto/update-account.dto';
 import { UpdateRoles } from './dto/update-roles.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
+@ApiTags('User')
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
@@ -29,7 +30,7 @@ export class AuthController {
   })
   @Post('/register')
   async register(@Body() createUserDto: CreateUserDto) {
-    return await this.authService.createUser(createUserDto);
+    return { token: await this.authService.createUser(createUserDto) };
   }
 
   @ApiOperation({

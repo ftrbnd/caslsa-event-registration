@@ -1,5 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsString } from 'class-validator';
+import {
+  IsDateString,
+  IsEmail,
+  IsEnum,
+  IsNumber,
+  IsOptional,
+  IsString,
+} from 'class-validator';
+import { Gender } from 'src/core/enums/gender.enum';
+import { MemberType } from 'src/core/enums/member-type.enum';
 
 export class CreateUserDto {
   @IsString()
@@ -14,4 +23,24 @@ export class CreateUserDto {
   @IsString()
   @ApiProperty()
   password: string;
+
+  @IsOptional()
+  @IsDateString()
+  @ApiProperty()
+  birthdate: Date;
+
+  @IsOptional()
+  @IsEnum(Gender)
+  @ApiProperty({ enum: Gender })
+  gender: Gender;
+
+  @IsOptional()
+  @IsEnum(MemberType)
+  @ApiProperty({ enum: MemberType })
+  memberType: MemberType;
+
+  @IsOptional()
+  @IsNumber()
+  @ApiProperty()
+  agencyId: number;
 }

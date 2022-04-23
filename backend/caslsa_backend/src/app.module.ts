@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
+import { EventsModule } from './events/events.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { AuthModule } from './auth/auth.module';
       `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@caslsa-events.yrf7k.mongodb.net/caslsa-events?retryWrites=true&w=majority`,
     ),
     AuthModule,
+    EventsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
