@@ -11,9 +11,6 @@ export const Header = () => {
             <p className="title">CALSA</p>
           </div>
           <div className="col-9 linkContainer">
-            <Link className="link" to="/home">
-              Home
-            </Link>
             <Link className="link" to="/events">
               Events
             </Link>

@@ -5,6 +5,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 30px;
 }
 
 .linkContainer {
@@ -23,7 +24,6 @@
 .title {
   color: white;
   font-size: 25px;
-  padding-top: 10px;
 }
 
 .link {

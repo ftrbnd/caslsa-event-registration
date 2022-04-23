@@ -1,0 +1,15 @@
+.surfIllustration {
+  margin-top: 30px;
+  width: 100%;
+  height: 80%;
+  object-fit: cover;
+}
+
+.editProfileTitle {
+  padding-bottom: 10px;
+  padding-top: 20px;
+}
+
+.editProfileButton {
+  margin-top: 40px;
+}

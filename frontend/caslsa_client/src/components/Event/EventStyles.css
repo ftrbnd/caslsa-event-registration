@@ -1,0 +1,14 @@
+.event {
+  background-color: white;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  height: 80px;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  padding-left: 20px;
+  padding-right: 20px;
+}

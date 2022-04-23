@@ -9,6 +9,7 @@ import {
   REGISTER_FAILURE,
   REGISTER_SUCCESS,
 } from "../redux/actionTypes/auth";
+import { GET_EVENTS } from "../redux/actionTypes/events";
 import { GET_ACCOUNT } from "../redux/actionTypes/user";
 
 export function* onLogin(action) {
@@ -16,8 +17,6 @@ export function* onLogin(action) {
     email: action.payload.email,
     password: action.payload.password,
   });
-
-  console.log(response);
 
   try {
     yield put({
@@ -29,6 +28,9 @@ export function* onLogin(action) {
     localStorage.setItem("token", response.token);
     yield put({
       type: GET_ACCOUNT,
+    });
+    yield put({
+      type: GET_EVENTS,
     });
   } catch (err) {
     yield put({
