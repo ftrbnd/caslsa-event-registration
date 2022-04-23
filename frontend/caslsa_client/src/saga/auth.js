@@ -1,5 +1,4 @@
 import { put, takeEvery } from "redux-saga/effects";
-import api from "../api/api";
 import { callApi } from "../api/callApi";
 import { loginRoute, registerRoute } from "../api/routes";
 import {
@@ -16,6 +15,8 @@ export function* onLogin(action) {
     email: action.payload.email,
     password: action.payload.password,
   });
+
+  console.log(response);
 
   try {
     yield put({

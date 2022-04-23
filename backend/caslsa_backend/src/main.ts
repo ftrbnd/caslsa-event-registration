@@ -8,7 +8,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.enableCors();
-  app.useGlobalPipes(new ValidationPipe({ transform: true}));
+  app.useGlobalPipes(new ValidationPipe({ transform: true }));
   app.useGlobalGuards(new RolesGuard(new Reflector()));
 
   const options = new DocumentBuilder()
@@ -20,6 +20,6 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('docs', app, document);
 
-  await app.listen(3000);
+  await app.listen(3001);
 }
 bootstrap();
