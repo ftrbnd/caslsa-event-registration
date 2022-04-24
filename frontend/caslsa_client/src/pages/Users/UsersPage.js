@@ -7,6 +7,10 @@ import "./UsersStyles.css";
 function UsersPage() {
   const { users } = useSelector((state) => state.user);
 
+  if (!users) {
+    return null;
+  }
+
   return (
     <div>
       <Header />

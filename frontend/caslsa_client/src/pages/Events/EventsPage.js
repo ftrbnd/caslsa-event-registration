@@ -27,7 +27,7 @@ function EventsPage() {
         <div className="container">
           <div className="d-flex align-items-center justify-content-between">
             <h1 className="pageTitle">Events</h1>
-            {user.roles.includes("user") && (
+            {user.roles.includes("admin") && (
               <Button variant="contained" onClick={createEvent}>
                 Create event
               </Button>

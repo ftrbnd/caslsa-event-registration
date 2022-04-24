@@ -44,7 +44,7 @@ export function* onGetAccount(action) {
         },
       },
     });
-    if (response.roles.includes("user")) {
+    if (response.roles.includes("admin")) {
       yield put({
         type: GET_ALL_USERS,
       });
@@ -145,12 +145,11 @@ export function* onDeleteUserAdmin(action) {
 }
 
 export function* onEditRole(action) {
-  const response = yield callApi(editRoleRoute, "PATCH", {
+  yield callApi(editRoleRoute, "PATCH", {
     email: action.payload.email,
     roles: action.payload.roles,
   });
 
-  console.log(response);
   try {
     yield put({
       type: EDIT_ROLE_SUCCESS,

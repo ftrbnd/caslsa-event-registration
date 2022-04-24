@@ -17,7 +17,7 @@ export const Header = () => {
             <Link className="link" to="/events">
               Events
             </Link>
-            {user.roles.includes("user") && (
+            {user.roles.includes("admin") && (
               <Link className="link" to="/users">
                 Users
               </Link>

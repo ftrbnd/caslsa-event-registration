@@ -1,0 +1,25 @@
+.userContainer {
+  width: 100%;
+  height: 80px;
+  background-color: white;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.userName {
+  width: 200px;
+  margin-right: 20px;
+}
+
+.userSelect {
+  width: 200px;
+  margin-right: 40px;
+}

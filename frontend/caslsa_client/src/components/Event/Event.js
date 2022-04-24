@@ -49,7 +49,7 @@ export const Event = ({ event, isSubscribed }) => {
   };
 
   const handleEventClick = () => {
-    if (user.roles.includes("user")) {
+    if (user.roles.includes("admin")) {
       dispatch({
         type: GET_SPECIFIC_EVENT,
         payload: {
@@ -88,7 +88,7 @@ export const Event = ({ event, isSubscribed }) => {
         <Button onClick={handleSubscribe}>
           {isSubscribed ? "Unsubscribe" : "Subscribe"}
         </Button>
-        {user.roles.includes("user") && (
+        {user.roles.includes("admin") && (
           <Button onClick={handleDelete}>Delete</Button>
         )}
       </div>
