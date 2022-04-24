@@ -1,8 +1,7 @@
 import { Button, TextField } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
 import "./LoginStyles.css";
-import { useSelector } from "react-redux";
-import store from "../../redux/store";
+import { useDispatch, useSelector } from "react-redux";
 import { LOGIN } from "../../redux/actionTypes/auth";
 import { Navigate } from "react-router-dom";
 import usePrevious from "../../hooks/usePrevious";
@@ -10,6 +9,7 @@ import usePrevious from "../../hooks/usePrevious";
 function LoginPage() {
   const emailRef = useRef();
   const passwordRef = useRef();
+  const dispatch = useDispatch();
 
   const { isLoadingLogin, errorLogin, token } = useSelector(
     (state) => state.auth
@@ -25,7 +25,7 @@ function LoginPage() {
   }, [isLoadingLogin, errorLogin]);
 
   function onSignInPress() {
-    store.dispatch({
+    dispatch({
       type: LOGIN,
       payload: {
         email: emailRef.current.value,
@@ -35,7 +35,7 @@ function LoginPage() {
   }
 
   if (loggedIn) {
-    return <Navigate to="/home" />;
+    return <Navigate to="/events" />;
   }
 
   return (

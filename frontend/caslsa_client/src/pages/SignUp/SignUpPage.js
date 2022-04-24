@@ -1,7 +1,7 @@
 import { Button, TextField } from "@mui/material";
 import React, { useRef } from "react";
+import { useDispatch } from "react-redux";
 import { REGISTER } from "../../redux/actionTypes/auth";
-import store from "../../redux/store";
 import "./SignUpStyles.css";
 
 function SignUpPage() {
@@ -10,8 +10,10 @@ function SignUpPage() {
   const firstnameRef = useRef();
   const lastnameRef = useRef();
 
+  const dispatch = useDispatch();
+
   function onSignInPress() {
-    store.dispatch({
+    dispatch({
       type: REGISTER,
       payload: {
         email: emailRef.current.value,
