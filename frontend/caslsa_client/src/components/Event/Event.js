@@ -4,6 +4,7 @@ import moment from "moment";
 import { Button } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  DELETE_EVENT,
   SUBSCRIBE_EVENT,
   UNSUBSCRIBE_EVENT,
 } from "../../redux/actionTypes/events";
@@ -15,6 +16,15 @@ export const Event = ({ event, isSubscribed }) => {
   const handleSubscribe = () => {
     dispatch({
       type: isSubscribed ? UNSUBSCRIBE_EVENT : SUBSCRIBE_EVENT,
+      payload: {
+        id: event._id,
+      },
+    });
+  };
+
+  const handleDelete = () => {
+    dispatch({
+      type: DELETE_EVENT,
       payload: {
         id: event._id,
       },
@@ -46,6 +56,9 @@ export const Event = ({ event, isSubscribed }) => {
         <Button onClick={handleSubscribe}>
           {isSubscribed ? "Unsubscribe" : "Subscribe"}
         </Button>
+        {user.roles.includes("user") && (
+          <Button onClick={handleDelete}>Delete</Button>
+        )}
       </div>
     </div>
   );

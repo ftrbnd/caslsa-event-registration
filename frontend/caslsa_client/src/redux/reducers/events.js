@@ -11,15 +11,20 @@ import {
   CREATE_EVENT,
   CREATE_EVENT_SUCCESS,
   CREATE_EVENT_FAILURE,
+  DELETE_EVENT,
+  DELETE_EVENT_SUCCESS,
+  DELETE_EVENT_FAILURE,
 } from "../actionTypes/events";
 
 const initialState = {
   isLoadingGet: false,
   isLoadingSubscribe: false,
   isLoadingCreate: false,
+  isLoadingDelete: false,
   errorGet: undefined,
   errorSubscribe: undefined,
   errorCreate: undefined,
+  errorDelete: undefined,
   events: [],
 };
 
@@ -97,6 +102,24 @@ export const eventsReducer = (state = initialState, action) => {
         ...state,
         isLoadingCreate: false,
         errorCreate: action.payload.error,
+      };
+    case DELETE_EVENT:
+      return {
+        ...state,
+        isLoadingDelete: true,
+        errorDelete: undefined,
+      };
+    case DELETE_EVENT_SUCCESS:
+      return {
+        ...state,
+        isLoadingDelete: false,
+        errorDelete: undefined,
+      };
+    case DELETE_EVENT_FAILURE:
+      return {
+        ...state,
+        isLoadingDelete: false,
+        errorDelete: action.payload.error,
       };
     default:
       return state;

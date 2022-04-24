@@ -2,6 +2,7 @@ import { put, takeEvery } from "redux-saga/effects";
 import { callApi } from "../api/callApi";
 import {
   createEventRoute,
+  deleteEventRoute,
   getEventsRoute,
   subscribeEventRoute,
   unsubscribeEventRoute,
@@ -10,6 +11,9 @@ import {
   CREATE_EVENT,
   CREATE_EVENT_FAILURE,
   CREATE_EVENT_SUCCESS,
+  DELETE_EVENT,
+  DELETE_EVENT_FAILURE,
+  DELETE_EVENT_SUCCESS,
   GET_EVENTS,
   GET_EVENTS_FAILURE,
   GET_EVENTS_SUCCESS,
@@ -113,9 +117,30 @@ export function* onCreateEvent(action) {
   }
 }
 
+export function* onDeleteEvent(action) {
+  yield callApi(deleteEventRoute + `/${action.payload.id}`, "DELETE");
+
+  try {
+    yield put({
+      type: DELETE_EVENT_SUCCESS,
+    });
+    yield put({
+      type: GET_EVENTS,
+    });
+  } catch (error) {
+    yield put({
+      type: DELETE_EVENT_FAILURE,
+      payload: {
+        error: error,
+      },
+    });
+  }
+}
+
 export function* watchEvents() {
   yield takeEvery(GET_EVENTS, onGetEvents);
   yield takeEvery(SUBSCRIBE_EVENT, onSubscribeEvent);
   yield takeEvery(UNSUBSCRIBE_EVENT, onUnsubscribeEvent);
   yield takeEvery(CREATE_EVENT, onCreateEvent);
+  yield takeEvery(DELETE_EVENT, onDeleteEvent);
 }
