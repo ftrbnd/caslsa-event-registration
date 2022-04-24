@@ -34,13 +34,23 @@ export class EventsService {
 
   async getEvent(eventId: string) {
     const event = await this.findEvent(eventId);
+    if (!event) throw new UnauthorizedException();
+    const users = [];
+    for (const u of event.users) {
+      try {
+        const user = await this.userModel.findById(u).select('email name');
+        users.push(user);
+      } catch (e) {
+        console.log(e);
+      }
+    }
     return {
       id: event.id,
       ageGroup: event.ageGroup,
       eventGroup: event.eventGroup,
       eventName: event.eventName,
       eventDate: event.eventDate,
-      users: event.users,
+      users: users,
     };
   }
 
