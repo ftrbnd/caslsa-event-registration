@@ -40,29 +40,33 @@ function LoginPage() {
 
   return (
     <div className="loginPage">
-      <h1>Authentification</h1>
+      <h1>CALSA</h1>
       <div className="loginForm">
-        <h3>E-mail</h3>
-        <TextField
-          id="email"
-          required
-          label="Email"
-          variant="outlined"
-          fullWidth
-          inputRef={emailRef}
-          type="email"
-        />
-        <h3>Password</h3>
-        <TextField
-          size="medium"
-          required
-          id="password"
-          label="Password"
-          variant="outlined"
-          fullWidth
-          inputRef={passwordRef}
-          type="password"
-        />
+        <div className="formRow">
+          <h3>E-mail</h3>
+          <TextField
+            id="email"
+            required
+            label="Email"
+            variant="outlined"
+            fullWidth
+            inputRef={emailRef}
+            type="email"
+          />
+        </div>
+        <div className="formRow">
+          <h3>Password</h3>
+          <TextField
+            size="medium"
+            required
+            id="password"
+            label="Password"
+            variant="outlined"
+            fullWidth
+            inputRef={passwordRef}
+            type="password"
+          />
+        </div>
       </div>
       <div className="loginButtons">
         <Button fullWidth onClick={onSignInPress} variant="contained">

@@ -9,3 +9,5 @@ export const getEventsRoute = "/events/all";
 export const subscribeEventRoute = "/events/subscribe";
 
 export const unsubscribeEventRoute = "/events/unsubscribe";
+
+export const createEventRoute = "/events/create";

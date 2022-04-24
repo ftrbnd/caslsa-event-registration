@@ -12,18 +12,16 @@ export const Event = ({ event, isSubscribed }) => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
 
-  console.log(event);
-
   const handleSubscribe = () => {
     dispatch({
       type: isSubscribed ? UNSUBSCRIBE_EVENT : SUBSCRIBE_EVENT,
       payload: {
-        id: isSubscribed ? event : event._id,
+        id: event._id,
       },
     });
   };
 
-  if (!isSubscribed && user.events.includes(event._id)) {
+  if (!isSubscribed && event.users.includes(user._id)) {
     return null;
   }
 

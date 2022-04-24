@@ -1,11 +1,15 @@
 import { put, takeEvery } from "redux-saga/effects";
 import { callApi } from "../api/callApi";
 import {
+  createEventRoute,
   getEventsRoute,
   subscribeEventRoute,
   unsubscribeEventRoute,
 } from "../api/routes";
 import {
+  CREATE_EVENT,
+  CREATE_EVENT_FAILURE,
+  CREATE_EVENT_SUCCESS,
   GET_EVENTS,
   GET_EVENTS_FAILURE,
   GET_EVENTS_SUCCESS,
@@ -84,8 +88,36 @@ export function* onUnsubscribeEvent(action) {
   }
 }
 
+export function* onCreateEvent(action) {
+  const response = yield callApi(createEventRoute, "POST", {
+    ageGroup: action.payload.ageGroup,
+    eventGroup: action.payload.ageGroup,
+    eventName: action.payload.eventName,
+    eventDate: action.payload.eventDate,
+  });
+
+  console.log(response);
+
+  try {
+    yield put({
+      type: CREATE_EVENT_SUCCESS,
+    });
+    yield put({
+      type: GET_EVENTS,
+    });
+  } catch (error) {
+    yield put({
+      type: CREATE_EVENT_FAILURE,
+      payload: {
+        error: error,
+      },
+    });
+  }
+}
+
 export function* watchEvents() {
   yield takeEvery(GET_EVENTS, onGetEvents);
   yield takeEvery(SUBSCRIBE_EVENT, onSubscribeEvent);
   yield takeEvery(UNSUBSCRIBE_EVENT, onUnsubscribeEvent);
+  yield takeEvery(CREATE_EVENT, onCreateEvent);
 }

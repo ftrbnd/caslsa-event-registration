@@ -17,7 +17,7 @@ function ProfilePage() {
   };
 
   if (navigateEdit) {
-    return <Navigate to="/editprofile" />;
+    return <Navigate to="/editProfile" />;
   }
 
   return (

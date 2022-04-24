@@ -8,13 +8,18 @@ import {
   UNSUBSCRIBE_EVENT,
   UNSUBSCRIBE_EVENT_SUCCESS,
   UNSUBSCRIBE_EVENT_FAILURE,
+  CREATE_EVENT,
+  CREATE_EVENT_SUCCESS,
+  CREATE_EVENT_FAILURE,
 } from "../actionTypes/events";
 
 const initialState = {
   isLoadingGet: false,
   isLoadingSubscribe: false,
+  isLoadingCreate: false,
   errorGet: undefined,
   errorSubscribe: undefined,
+  errorCreate: undefined,
   events: [],
 };
 
@@ -74,6 +79,24 @@ export const eventsReducer = (state = initialState, action) => {
         ...state,
         isLoadingSubscribe: false,
         errorSubscribe: action.payload.error,
+      };
+    case CREATE_EVENT:
+      return {
+        ...state,
+        isLoadingCreate: true,
+        errorCreate: undefined,
+      };
+    case CREATE_EVENT_SUCCESS:
+      return {
+        ...state,
+        isLoadingCreate: false,
+        errorCreate: undefined,
+      };
+    case CREATE_EVENT_FAILURE:
+      return {
+        ...state,
+        isLoadingCreate: false,
+        errorCreate: action.payload.error,
       };
     default:
       return state;
