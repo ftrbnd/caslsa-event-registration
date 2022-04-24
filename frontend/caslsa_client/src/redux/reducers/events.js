@@ -14,18 +14,24 @@ import {
   DELETE_EVENT,
   DELETE_EVENT_SUCCESS,
   DELETE_EVENT_FAILURE,
+  GET_SPECIFIC_EVENT,
+  GET_SPECIFIC_EVENT_SUCCESS,
+  GET_SPECIFIC_EVENT_FAILURE,
 } from "../actionTypes/events";
 
 const initialState = {
   isLoadingGet: false,
+  isLoadingSpecific: false,
   isLoadingSubscribe: false,
   isLoadingCreate: false,
   isLoadingDelete: false,
   errorGet: undefined,
+  errorSpecific: undefined,
   errorSubscribe: undefined,
   errorCreate: undefined,
   errorDelete: undefined,
   events: [],
+  specificEvent: undefined,
 };
 
 export const eventsReducer = (state = initialState, action) => {
@@ -46,8 +52,27 @@ export const eventsReducer = (state = initialState, action) => {
     case GET_EVENTS_FAILURE:
       return {
         ...state,
-        errorGet: action.payload.error,
         isLoadingGet: false,
+        errorGet: action.payload.error,
+      };
+    case GET_SPECIFIC_EVENT:
+      return {
+        ...state,
+        isLoadingSpecific: true,
+        errorSpecific: undefined,
+      };
+    case GET_SPECIFIC_EVENT_SUCCESS:
+      return {
+        ...state,
+        isLoadingSpecific: false,
+        errorSpecific: undefined,
+        specificEvent: action.payload.event,
+      };
+    case GET_SPECIFIC_EVENT_FAILURE:
+      return {
+        ...state,
+        isLoadingSpecific: false,
+        errorSpecific: action.payload.error,
       };
     case SUBSCRIBE_EVENT:
       return {

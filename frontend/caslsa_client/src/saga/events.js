@@ -4,6 +4,7 @@ import {
   createEventRoute,
   deleteEventRoute,
   getEventsRoute,
+  getSpecificEventRoute,
   subscribeEventRoute,
   unsubscribeEventRoute,
 } from "../api/routes";
@@ -17,6 +18,9 @@ import {
   GET_EVENTS,
   GET_EVENTS_FAILURE,
   GET_EVENTS_SUCCESS,
+  GET_SPECIFIC_EVENT,
+  GET_SPECIFIC_EVENT_FAILURE,
+  GET_SPECIFIC_EVENT_SUCCESS,
   SUBSCRIBE_EVENT,
   SUBSCRIBE_EVENT_FAILURE,
   SUBSCRIBE_EVENT_SUCCESS,
@@ -39,6 +43,30 @@ export function* onGetEvents(action) {
   } catch (error) {
     yield put({
       type: GET_EVENTS_FAILURE,
+      payload: {
+        error: error,
+      },
+    });
+  }
+}
+
+export function* onGetSpecificEvent(action) {
+  const response = yield callApi(
+    getSpecificEventRoute + `/${action.payload.id}`,
+    "GET"
+  );
+
+  console.log(response);
+  try {
+    yield put({
+      type: GET_SPECIFIC_EVENT_SUCCESS,
+      payload: {
+        event: response,
+      },
+    });
+  } catch (error) {
+    yield put({
+      type: GET_SPECIFIC_EVENT_FAILURE,
       payload: {
         error: error,
       },
@@ -139,6 +167,7 @@ export function* onDeleteEvent(action) {
 
 export function* watchEvents() {
   yield takeEvery(GET_EVENTS, onGetEvents);
+  yield takeEvery(GET_SPECIFIC_EVENT, onGetSpecificEvent);
   yield takeEvery(SUBSCRIBE_EVENT, onSubscribeEvent);
   yield takeEvery(UNSUBSCRIBE_EVENT, onUnsubscribeEvent);
   yield takeEvery(CREATE_EVENT, onCreateEvent);

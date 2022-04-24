@@ -8,6 +8,8 @@ export const deleteAccountRoute = "/auth/account";
 
 export const getEventsRoute = "/events/all";
 
+export const getSpecificEventRoute = "/events";
+
 export const subscribeEventRoute = "/events/subscribe";
 
 export const unsubscribeEventRoute = "/events/unsubscribe";
