@@ -1,16 +1,36 @@
 import { Button } from "@mui/material";
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { Header } from "../../components/Header/Header";
+import usePrevious from "../../hooks/usePrevious";
+import { DELETE_ACCOUNT } from "../../redux/actionTypes/user";
 import "./ProfileStyles.css";
 
 function ProfilePage() {
-  const { user } = useSelector((state) => state.user);
+  const { user, isLoadingDelete, errorDelete } = useSelector(
+    (state) => state.user
+  );
+
+  const dispatch = useDispatch();
 
   const [navigateEdit, setNavigateEdit] = useState(false);
+  const [navigateLogin, setNavigateLogin] = useState(false);
 
-  const deleteAccount = () => {};
+  const previousLoading = usePrevious(isLoadingDelete);
+
+  useEffect(() => {
+    if (previousLoading === true && !errorDelete) {
+      setNavigateLogin(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoadingDelete, errorDelete]);
+
+  const deleteAccount = () => {
+    dispatch({
+      type: DELETE_ACCOUNT,
+    });
+  };
 
   const editAccount = () => {
     setNavigateEdit(true);
@@ -18,6 +38,10 @@ function ProfilePage() {
 
   if (navigateEdit) {
     return <Navigate to="/editProfile" />;
+  }
+
+  if (navigateLogin) {
+    return <Navigate to="/" />;
   }
 
   return (

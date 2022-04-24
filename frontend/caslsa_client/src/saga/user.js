@@ -1,7 +1,10 @@
 import { put, takeEvery } from "redux-saga/effects";
 import { callApi } from "../api/callApi";
-import { getAccountRoute } from "../api/routes";
+import { deleteAccountRoute, getAccountRoute } from "../api/routes";
 import {
+  DELETE_ACCOUNT,
+  DELETE_ACCOUNT_FAILURE,
+  DELETE_ACCOUNT_SUCCESS,
   EDIT_ACCOUNT,
   EDIT_ACCOUNT_FAILURE,
   EDIT_ACCOUNT_SUCCESS,
@@ -61,7 +64,26 @@ export function* onEditAccount(action) {
   }
 }
 
+export function* onDeleteAccount(action) {
+  const response = yield callApi(deleteAccountRoute, "DELETE");
+
+  console.log(response);
+  try {
+    yield put({
+      type: DELETE_ACCOUNT_SUCCESS,
+    });
+  } catch (error) {
+    yield put({
+      type: DELETE_ACCOUNT_FAILURE,
+      payload: {
+        error: error,
+      },
+    });
+  }
+}
+
 export function* watchUser() {
   yield takeEvery(GET_ACCOUNT, onGetAccount);
   yield takeEvery(EDIT_ACCOUNT, onEditAccount);
+  yield takeEvery(DELETE_ACCOUNT, onDeleteAccount);
 }

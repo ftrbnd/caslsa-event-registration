@@ -1,4 +1,7 @@
 import {
+  DELETE_ACCOUNT,
+  DELETE_ACCOUNT_FAILURE,
+  DELETE_ACCOUNT_SUCCESS,
   EDIT_ACCOUNT,
   EDIT_ACCOUNT_FAILURE,
   EDIT_ACCOUNT_SUCCESS,
@@ -10,8 +13,10 @@ import {
 const initialState = {
   isLoadingAccount: false,
   isLoadingEdit: false,
+  isLoadingDelete: false,
   errorAccount: undefined,
   errorEdit: undefined,
+  errorDelete: undefined,
   user: {},
 };
 
@@ -54,6 +59,24 @@ export const userReducer = (state = initialState, action) => {
         ...state,
         errorEdit: action.payload.error,
         isLoadingEdit: false,
+      };
+    case DELETE_ACCOUNT:
+      return {
+        ...state,
+        isLoadingDelete: true,
+        errorDelete: undefined,
+      };
+    case DELETE_ACCOUNT_SUCCESS:
+      return {
+        ...state,
+        isLoadingDelete: false,
+        errorDelete: undefined,
+      };
+    case DELETE_ACCOUNT_FAILURE:
+      return {
+        ...state,
+        isLoadingDelete: false,
+        errorDelete: action.payload.error,
       };
     default:
       return state;
