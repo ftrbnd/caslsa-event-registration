@@ -13,3 +13,9 @@ export const subscribeEventRoute = "/events/subscribe";
 export const unsubscribeEventRoute = "/events/unsubscribe";
 
 export const createEventRoute = "/events/create";
+
+export const getUsersRoute = "/auth/users";
+
+export const deleteAccountAdminRoute = "/auth/user";
+
+export const editRoleRoute = "/auth/roles";

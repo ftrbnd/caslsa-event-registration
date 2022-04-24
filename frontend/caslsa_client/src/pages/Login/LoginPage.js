@@ -24,6 +24,11 @@ function LoginPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoadingLogin, errorLogin]);
 
+  useEffect(() => {
+    emailRef.current.value = "hugodegrouchy@gmail.com";
+    passwordRef.current.value = "hugo1234";
+  }, []);
+
   function onSignInPress() {
     dispatch({
       type: LOGIN,

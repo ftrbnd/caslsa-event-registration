@@ -89,14 +89,12 @@ export function* onUnsubscribeEvent(action) {
 }
 
 export function* onCreateEvent(action) {
-  const response = yield callApi(createEventRoute, "POST", {
+  yield callApi(createEventRoute, "POST", {
     ageGroup: action.payload.ageGroup,
     eventGroup: action.payload.ageGroup,
     eventName: action.payload.eventName,
     eventDate: action.payload.eventDate,
   });
-
-  console.log(response);
 
   try {
     yield put({

@@ -1,8 +1,11 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import "./Header.css";
 
 export const Header = () => {
+  const { user } = useSelector((state) => state.user);
+
   return (
     <div className="header">
       <div className="container">
@@ -14,6 +17,11 @@ export const Header = () => {
             <Link className="link" to="/events">
               Events
             </Link>
+            {user.roles.includes("user") && (
+              <Link className="link" to="/users">
+                Users
+              </Link>
+            )}
             <Link className="link" to="/profile">
               Profile
             </Link>
