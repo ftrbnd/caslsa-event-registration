@@ -70,7 +70,7 @@ export class AuthController {
   @Roles(Role.Admin)
   @UseGuards(JwtAuthGuard)
   async deleteUser(@Body() auth: AuthEmailDto) {
-    return await this.authService.deleteUser(auth);
+    return { success: await this.authService.deleteUser(auth) };
   }
 
   @ApiOperation({ summary: 'Delete own account for user' })
@@ -79,7 +79,7 @@ export class AuthController {
   @Roles(Role.Admin, Role.User)
   @UseGuards(JwtAuthGuard)
   async deleteOwnAccount(@Req() request) {
-    return await this.authService.deleteOwnAccount(request);
+    return { success: await this.authService.deleteOwnAccount(request) };
   }
 
   @ApiOperation({ summary: 'Update account roles (Only admin)' })
@@ -88,7 +88,7 @@ export class AuthController {
   @Roles(Role.Admin)
   @UseGuards(JwtAuthGuard)
   async updateRoles(@Body() user: UpdateRoles) {
-    return await this.authService.updateRoles(user);
+    return { success: await this.authService.updateRoles(user) };
   }
 
   @ApiOperation({ summary: 'Edit account' })
@@ -97,7 +97,7 @@ export class AuthController {
   @Roles(Role.Admin, Role.User)
   @UseGuards(JwtAuthGuard)
   async updateAccount(@Req() request, @Body() user: PartialUpdateAccountDto) {
-    return await this.authService.updateAccount(request, user);
+    return { success: await this.authService.updateAccount(request, user) };
   }
 
   @ApiOperation({ summary: 'Edit user (Admin Only)' })
@@ -106,6 +106,6 @@ export class AuthController {
   @Roles(Role.Admin)
   @UseGuards(JwtAuthGuard)
   async updateUser(@Body() user: UpdateUserDto) {
-    return await this.authService.updateUser(user);
+    return { success: await this.authService.updateUser(user) };
   }
 }
