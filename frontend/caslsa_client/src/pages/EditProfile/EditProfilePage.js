@@ -1,10 +1,9 @@
 import { Button, TextField } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Header } from "../../components/Header/Header";
 import "./EditProfileStyles.css";
 import illustration from "../../assets/surf.jpg";
-import store from "../../redux/store";
 import { EDIT_ACCOUNT } from "../../redux/actionTypes/user";
 import usePrevious from "../../hooks/usePrevious";
 import { Navigate } from "react-router-dom";
@@ -13,6 +12,7 @@ function EditProfilePage() {
   const emailRef = useRef();
   const nameRef = useRef();
 
+  const dispatch = useDispatch();
   const { user, isLoadingEdit, errorEdit } = useSelector((state) => state.user);
 
   const [editRedirect, setEditRedirect] = useState(false);
@@ -33,7 +33,7 @@ function EditProfilePage() {
   }, []);
 
   const editProfile = () => {
-    store.dispatch({
+    dispatch({
       type: EDIT_ACCOUNT,
       payload: {
         email: emailRef.current.value,

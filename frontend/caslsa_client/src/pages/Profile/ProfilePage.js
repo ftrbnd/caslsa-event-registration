@@ -33,11 +33,15 @@ function ProfilePage() {
             </div>
           </div>
         </div>
-        <div className="row">
+        <div className="formRow">
           <h4>Name</h4>
           <p>{user.name}</p>
+        </div>
+        <div className="formRow">
           <h4>Email</h4>
           <p>{user.email}</p>
+        </div>
+        <div className="formRow">
           <h4>Roles</h4>
           {user.roles.map((role, index) => {
             return <p key={index}>{role}</p>;

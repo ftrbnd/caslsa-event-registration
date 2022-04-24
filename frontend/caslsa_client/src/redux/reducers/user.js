@@ -44,12 +44,10 @@ export const userReducer = (state = initialState, action) => {
         errorEdit: undefined,
       };
     case EDIT_ACCOUNT_SUCCESS:
-      console.log(action.payload.user);
       return {
         ...state,
         isLoadingEdit: false,
         errorEdit: undefined,
-        // user: action.payload.user,
       };
     case EDIT_ACCOUNT_FAILURE:
       return {

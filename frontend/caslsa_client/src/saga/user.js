@@ -37,12 +37,13 @@ export function* onGetAccount(action) {
 }
 
 export function* onEditAccount(action) {
-  yield callApi(getAccountRoute, "PATCH", {
+  const response = yield callApi(getAccountRoute, "PATCH", {
     email: action.payload.email,
     name: action.payload.name,
   });
 
   try {
+    console.log(response);
     yield put({
       type: EDIT_ACCOUNT_SUCCESS,
     });
