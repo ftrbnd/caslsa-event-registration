@@ -77,9 +77,21 @@ export class EventsService {
 
   async deleteEvent(eventId: string) {
     try {
-      await this.eventModel.deleteOne({ _id: eventId }).exec();
+      const event = await this.eventModel
+        .findOneAndDelete({ _id: eventId })
+        .exec();
+      if (!event) throw new NotFoundException('Event not found.');
+      for (const id of event.users) {
+        const user = await this.userModel.findById(id);
+        if (!user) continue;
+        const eventIndex = user.events.indexOf(event._id);
+        if (eventIndex > -1) {
+          user.events.splice(eventIndex, 1);
+          await user.save();
+        }
+      }
     } catch (error) {
-      throw new NotFoundException('Could not find event.');
+      throw new InternalServerErrorException();
     }
   }
 
