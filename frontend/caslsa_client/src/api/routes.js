@@ -12,6 +12,8 @@ export const getSpecificEventRoute = "/events";
 
 export const subscribeEventRoute = "/events/subscribe";
 
+export const forceUnsubscribeEventRoute = "/events/force-unsubscribe";
+
 export const unsubscribeEventRoute = "/events/unsubscribe";
 
 export const createEventRoute = "/events/create";

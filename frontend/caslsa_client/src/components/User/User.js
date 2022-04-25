@@ -6,12 +6,15 @@ import {
   Select,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { FORCE_UNSUBSCRIBE_EVENT } from "../../redux/actionTypes/events";
 import { DELETE_ACCOUNT_ADMIN, EDIT_ROLE } from "../../redux/actionTypes/user";
 import "./UserStyles.css";
 
 export const User = ({ user }) => {
   const [roles, setRoles] = useState("");
+
+  const { specificEvent } = useSelector((state) => state.events);
 
   const dispatch = useDispatch();
 
@@ -53,7 +56,7 @@ export const User = ({ user }) => {
     setRoles(event.target.value);
   };
 
-  const handleDelete = (event) => {
+  const handleDelete = () => {
     dispatch({
       type: DELETE_ACCOUNT_ADMIN,
       payload: {
@@ -62,13 +65,16 @@ export const User = ({ user }) => {
     });
   };
 
-  const handleRemove = (event) => {
-    dispatch({
-      type: DELETE_ACCOUNT_ADMIN,
-      payload: {
-        email: user.email,
-      },
-    });
+  const handleRemove = () => {
+    if (specificEvent) {
+      dispatch({
+        type: FORCE_UNSUBSCRIBE_EVENT,
+        payload: {
+          email: user.email,
+          eventId: specificEvent.id,
+        },
+      });
+    }
   };
 
   return (

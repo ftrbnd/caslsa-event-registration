@@ -3,6 +3,7 @@ import { callApi } from "../api/callApi";
 import {
   createEventRoute,
   deleteEventRoute,
+  forceUnsubscribeEventRoute,
   getEventsRoute,
   getSpecificEventRoute,
   subscribeEventRoute,
@@ -15,6 +16,9 @@ import {
   DELETE_EVENT,
   DELETE_EVENT_FAILURE,
   DELETE_EVENT_SUCCESS,
+  FORCE_UNSUBSCRIBE_EVENT,
+  FORCE_UNSUBSCRIBE_EVENT_FAILURE,
+  FORCE_UNSUBSCRIBE_EVENT_SUCCESS,
   GET_EVENTS,
   GET_EVENTS_FAILURE,
   GET_EVENTS_SUCCESS,
@@ -56,7 +60,6 @@ export function* onGetSpecificEvent(action) {
     "GET"
   );
 
-  console.log(response);
   try {
     yield put({
       type: GET_SPECIFIC_EVENT_SUCCESS,
@@ -165,6 +168,34 @@ export function* onDeleteEvent(action) {
   }
 }
 
+export function* onForceUnsubscribeEvent(action) {
+  const response = yield callApi(forceUnsubscribeEventRoute, "POST", {
+    email: action.payload.email,
+    eventId: action.payload.eventId,
+  });
+
+  console.log(response);
+
+  try {
+    yield put({
+      type: FORCE_UNSUBSCRIBE_EVENT_SUCCESS,
+    });
+    yield put({
+      type: GET_SPECIFIC_EVENT,
+      payload: {
+        id: action.payload.eventId,
+      },
+    });
+  } catch (error) {
+    yield put({
+      type: FORCE_UNSUBSCRIBE_EVENT_FAILURE,
+      payload: {
+        error: error,
+      },
+    });
+  }
+}
+
 export function* watchEvents() {
   yield takeEvery(GET_EVENTS, onGetEvents);
   yield takeEvery(GET_SPECIFIC_EVENT, onGetSpecificEvent);
@@ -172,4 +203,5 @@ export function* watchEvents() {
   yield takeEvery(UNSUBSCRIBE_EVENT, onUnsubscribeEvent);
   yield takeEvery(CREATE_EVENT, onCreateEvent);
   yield takeEvery(DELETE_EVENT, onDeleteEvent);
+  yield takeEvery(FORCE_UNSUBSCRIBE_EVENT, onForceUnsubscribeEvent);
 }

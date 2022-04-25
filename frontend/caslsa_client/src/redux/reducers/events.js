@@ -17,6 +17,9 @@ import {
   GET_SPECIFIC_EVENT,
   GET_SPECIFIC_EVENT_SUCCESS,
   GET_SPECIFIC_EVENT_FAILURE,
+  FORCE_UNSUBSCRIBE_EVENT,
+  FORCE_UNSUBSCRIBE_EVENT_SUCCESS,
+  FORCE_UNSUBSCRIBE_EVENT_FAILURE,
 } from "../actionTypes/events";
 
 const initialState = {
@@ -25,11 +28,13 @@ const initialState = {
   isLoadingSubscribe: false,
   isLoadingCreate: false,
   isLoadingDelete: false,
+  isLoadingForceUnsubscribe: false,
   errorGet: undefined,
   errorSpecific: undefined,
   errorSubscribe: undefined,
   errorCreate: undefined,
   errorDelete: undefined,
+  errorForceUnsubscribe: undefined,
   events: [],
   specificEvent: undefined,
 };
@@ -145,6 +150,24 @@ export const eventsReducer = (state = initialState, action) => {
         ...state,
         isLoadingDelete: false,
         errorDelete: action.payload.error,
+      };
+    case FORCE_UNSUBSCRIBE_EVENT:
+      return {
+        ...state,
+        isLoadingForceUnsubscribe: true,
+        errorForceUnsubscribe: undefined,
+      };
+    case FORCE_UNSUBSCRIBE_EVENT_SUCCESS:
+      return {
+        ...state,
+        isLoadingForceUnsubscribe: false,
+        errorForceUnsubscribe: undefined,
+      };
+    case FORCE_UNSUBSCRIBE_EVENT_FAILURE:
+      return {
+        ...state,
+        isLoadingForceUnsubscribe: false,
+        errorForceUnsubscribe: action.payload.error,
       };
     default:
       return state;

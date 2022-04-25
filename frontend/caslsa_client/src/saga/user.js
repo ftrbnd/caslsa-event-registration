@@ -103,7 +103,6 @@ export function* onDeleteAccount(action) {
 export function* onGetAllUsers(action) {
   const response = yield callApi(getUsersRoute, "GET");
 
-  console.log("RESPONSE", response);
   try {
     yield put({
       type: GET_ALL_USERS_SUCCESS,
@@ -122,11 +121,10 @@ export function* onGetAllUsers(action) {
 }
 
 export function* onDeleteUserAdmin(action) {
-  const response = yield callApi(deleteAccountAdminRoute, "DELETE", {
+  yield callApi(deleteAccountAdminRoute, "DELETE", {
     email: action.payload.email,
   });
 
-  console.log(response);
   try {
     yield put({
       type: DELETE_ACCOUNT_ADMIN_SUCCESS,
