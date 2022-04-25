@@ -11,6 +11,7 @@ import {
 } from "../redux/actionTypes/auth";
 import { GET_EVENTS } from "../redux/actionTypes/events";
 import { GET_ACCOUNT } from "../redux/actionTypes/user";
+import { toast } from "react-toastify";
 
 export function* onLogin(action) {
   const response = yield callApi(loginRoute, "POST", {
@@ -39,6 +40,7 @@ export function* onLogin(action) {
         error: err,
       },
     });
+    toast.error("Email or password incorrect.");
   }
 }
 
@@ -56,6 +58,8 @@ export function* onRegister(action) {
         token: response.token,
       },
     });
+
+    toast.success("You are registered. You can now log in");
   } catch (error) {
     yield put({
       type: REGISTER_FAILURE,
@@ -63,6 +67,7 @@ export function* onRegister(action) {
         error: error,
       },
     });
+    toast.error("An error has occured. Please try again.");
   }
 }
 

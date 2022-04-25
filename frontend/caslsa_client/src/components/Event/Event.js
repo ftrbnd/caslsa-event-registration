@@ -30,7 +30,8 @@ export const Event = ({ event, isSubscribed }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoadingSpecific, errorSpecific]);
 
-  const handleSubscribe = () => {
+  const handleSubscribe = (test) => {
+    test.stopPropagation();
     dispatch({
       type: isSubscribed ? UNSUBSCRIBE_EVENT : SUBSCRIBE_EVENT,
       payload: {

@@ -10,8 +10,12 @@ import CreateEventPage from "./pages/CreateEvent/CreateEventPage";
 import UsersPage from "./pages/Users/UsersPage";
 import EventDetailsPage from "./pages/EventDetails/EventDetailsPage";
 import EditEventPage from "./pages/EditEvent/EditEventPage";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
+  toast.configure();
+
   return (
     <Router>
       <Routes>
