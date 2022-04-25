@@ -44,7 +44,7 @@ function EventsPage() {
             )}
           </div>
           <div className="eventsSection">
-            <h3>Events available ({events.length})</h3>
+            <h3>Events available ({events.length - user.events.length})</h3>
             {events.length === 0 ? (
               <p className="noEvents">No event for the moment</p>
             ) : (
