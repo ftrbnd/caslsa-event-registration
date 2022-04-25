@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import { put, takeEvery } from "redux-saga/effects";
 import { callApi } from "../api/callApi";
 import {
@@ -90,6 +91,7 @@ export function* onSubscribeEvent(action) {
     yield put({
       type: GET_ACCOUNT,
     });
+    toast.success("You have been subscribed to this event.");
   } catch (error) {
     yield put({
       type: SUBSCRIBE_EVENT_FAILURE,
@@ -97,6 +99,7 @@ export function* onSubscribeEvent(action) {
         error: error,
       },
     });
+    toast.error("An error has occured. Please try again.");
   }
 }
 
@@ -113,6 +116,7 @@ export function* onUnsubscribeEvent(action) {
     yield put({
       type: GET_ACCOUNT,
     });
+    toast.success("You have been unsubscribed to this event.");
   } catch (error) {
     yield put({
       type: UNSUBSCRIBE_EVENT_FAILURE,
@@ -120,6 +124,7 @@ export function* onUnsubscribeEvent(action) {
         error: error,
       },
     });
+    toast.error("An error has occured. Please try again.");
   }
 }
 
@@ -138,6 +143,7 @@ export function* onCreateEvent(action) {
     yield put({
       type: GET_EVENTS,
     });
+    toast.success("The event has been correctly created.");
   } catch (error) {
     yield put({
       type: CREATE_EVENT_FAILURE,
@@ -145,6 +151,7 @@ export function* onCreateEvent(action) {
         error: error,
       },
     });
+    toast.error("An error has occured. Please try again.");
   }
 }
 
@@ -158,6 +165,10 @@ export function* onDeleteEvent(action) {
     yield put({
       type: GET_EVENTS,
     });
+    yield put({
+      type: GET_ACCOUNT,
+    });
+    toast.success("The event has been correctly deleted.");
   } catch (error) {
     yield put({
       type: DELETE_EVENT_FAILURE,
@@ -165,16 +176,15 @@ export function* onDeleteEvent(action) {
         error: error,
       },
     });
+    toast.error("An error has occured. Please try again.");
   }
 }
 
 export function* onForceUnsubscribeEvent(action) {
-  const response = yield callApi(forceUnsubscribeEventRoute, "POST", {
+  yield callApi(forceUnsubscribeEventRoute, "POST", {
     email: action.payload.email,
     eventId: action.payload.eventId,
   });
-
-  console.log(response);
 
   try {
     yield put({
@@ -186,6 +196,7 @@ export function* onForceUnsubscribeEvent(action) {
         id: action.payload.eventId,
       },
     });
+    toast.success("The user has been remove from the event.");
   } catch (error) {
     yield put({
       type: FORCE_UNSUBSCRIBE_EVENT_FAILURE,
@@ -193,6 +204,7 @@ export function* onForceUnsubscribeEvent(action) {
         error: error,
       },
     });
+    toast.error("An error has occured. Please try again.");
   }
 }
 

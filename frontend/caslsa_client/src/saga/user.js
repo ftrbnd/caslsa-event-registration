@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import { put, takeEvery } from "redux-saga/effects";
 import { callApi } from "../api/callApi";
 import {
@@ -73,6 +74,7 @@ export function* onEditAccount(action) {
     yield put({
       type: GET_ACCOUNT,
     });
+    toast.success("Your account has been updated.");
   } catch (error) {
     yield put({
       type: EDIT_ACCOUNT_FAILURE,
@@ -80,6 +82,7 @@ export function* onEditAccount(action) {
         error: error,
       },
     });
+    toast.error("An error has occured. Please try again.");
   }
 }
 
@@ -90,6 +93,7 @@ export function* onDeleteAccount(action) {
     yield put({
       type: DELETE_ACCOUNT_SUCCESS,
     });
+    toast.success("Your account has been deleted.");
   } catch (error) {
     yield put({
       type: DELETE_ACCOUNT_FAILURE,
@@ -97,6 +101,7 @@ export function* onDeleteAccount(action) {
         error: error,
       },
     });
+    toast.error("An error has occured. Please try again.");
   }
 }
 
@@ -132,6 +137,7 @@ export function* onDeleteUserAdmin(action) {
     yield put({
       type: GET_ALL_USERS,
     });
+    toast.success("The user has been correctly deleted.");
   } catch (error) {
     yield put({
       type: DELETE_ACCOUNT_ADMIN_FAILURE,
@@ -139,6 +145,7 @@ export function* onDeleteUserAdmin(action) {
         error: error,
       },
     });
+    toast.error("An error has occured. Please try again.");
   }
 }
 
