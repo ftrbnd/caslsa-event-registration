@@ -91,7 +91,7 @@ export class EventsService {
         }
       }
     } catch (error) {
-      throw new InternalServerErrorException();
+      throw new NotFoundException('Event not found.');
     }
   }
 
