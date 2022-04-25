@@ -16,6 +16,7 @@ import { UpdateEventDto } from './dto/update-event.dto';
 import { Roles } from 'src/core/decorators/role.decorator';
 import { Role } from 'src/core/enums/role.enum';
 import { JwtAuthGuard } from 'src/core/guards/jwt-auth.guard';
+import { ForceUnsubscribeDTO } from './dto/force-unsubsribe.dto';
 
 @ApiTags('Event')
 @Controller('events')
@@ -99,5 +100,16 @@ export class EventsController {
   @UseGuards(JwtAuthGuard)
   async unsubscribe(@Req() request, @Param('id') eventId: string) {
     return await this.eventsService.unsubscribeToEvent(request.user, eventId);
+  }
+
+  @ApiOperation({
+    summary: 'Unsubscribe a specific user to an event (Admin)',
+  })
+  @ApiBearerAuth()
+  @Post('/force-unsubscribe')
+  @Roles(Role.Admin)
+  @UseGuards(JwtAuthGuard)
+  async forceUnsubscribe(@Body() body: ForceUnsubscribeDTO) {
+    return await this.eventsService.forceUnsubscribe(body);
   }
 }

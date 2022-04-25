@@ -9,6 +9,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User } from 'src/auth/user.model';
 import { CreateEventDto } from './dto/create-event.dto';
+import { ForceUnsubscribeDTO } from './dto/force-unsubsribe.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
 import { Event } from './event.model';
 
@@ -120,6 +121,29 @@ export class EventsService {
     const user = await this.userModel.findOne({ email });
     if (!user) throw new UnauthorizedException();
     const event = await this.findEvent(id);
+    if (!user.events.includes(event._id) || !event.users.includes(user._id))
+      throw new NotAcceptableException('User not subscribed');
+    try {
+      const eventIndex = user.events.indexOf(event._id);
+      if (eventIndex > -1) {
+        user.events.splice(eventIndex, 1);
+        await user.save();
+      }
+      const userIndex = event.users.indexOf(user._id);
+      if (userIndex > -1) {
+        event.users.splice(userIndex, 1);
+        await event.save();
+      }
+      return { success: 'Unsubscribed.' };
+    } catch (e) {
+      throw new InternalServerErrorException();
+    }
+  }
+
+  public async forceUnsubscribe(body: ForceUnsubscribeDTO) {
+    const user = await this.userModel.findOne({ email: body.email });
+    if (!user) throw new NotFoundException('Could not find user.');
+    const event = await this.findEvent(body.eventId);
     if (!user.events.includes(event._id) || !event.users.includes(user._id))
       throw new NotAcceptableException('User not subscribed');
     try {
