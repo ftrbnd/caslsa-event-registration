@@ -1,49 +1,16 @@
-import React, { useEffect, useRef, useState } from "react";
-import "./CreateEventStyles.css";
-import { Header } from "../../components/Header/Header";
 import { Button, TextField } from "@mui/material";
+import React, { useRef } from "react";
+import { Header } from "../../components/Header/Header";
+import "./EditEventStyles.css";
 import illustration from "../../assets/surf.jpg";
-import { useDispatch, useSelector } from "react-redux";
-import { CREATE_EVENT } from "../../redux/actionTypes/events";
-import usePrevious from "../../hooks/usePrevious";
-import { Navigate } from "react-router-dom";
 
-function CreateEventPage() {
+function EditEventPage() {
   const ageGroupRef = useRef();
   const dateRef = useRef();
   const nameRef = useRef();
   const groupRef = useRef();
 
-  const dispatch = useDispatch();
-
-  const { isLoadingCreate, errorCreate } = useSelector((state) => state.events);
-
-  const previousLoading = usePrevious(isLoadingCreate);
-
-  const [redirectCreate, setRedirectCreate] = useState(false);
-
-  useEffect(() => {
-    if (previousLoading === true && !errorCreate) {
-      setRedirectCreate(true);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoadingCreate, errorCreate]);
-
-  if (redirectCreate) {
-    return <Navigate to="/events" />;
-  }
-
-  const handleCreate = () => {
-    dispatch({
-      type: CREATE_EVENT,
-      payload: {
-        ageGroup: ageGroupRef.current.value,
-        eventName: nameRef.current.value,
-        eventGroup: groupRef.current.value,
-        eventDate: dateRef.current.value,
-      },
-    });
-  };
+  const handleEdit = () => {};
 
   return (
     <div>
@@ -51,7 +18,7 @@ function CreateEventPage() {
       <div className="container">
         <div className="row">
           <div className="col-12 col-md-4">
-            <h1>Create Event</h1>
+            <h1>Edit event</h1>
             <div className="formRow">
               <h3 className="formInputTitle">Age group</h3>
               <TextField
@@ -99,7 +66,7 @@ function CreateEventPage() {
             </div>
 
             <div className="formRow">
-              <Button onClick={handleCreate} variant="contained" fullWidth>
+              <Button onClick={handleEdit} variant="contained" fullWidth>
                 Create
               </Button>
             </div>
@@ -113,4 +80,4 @@ function CreateEventPage() {
   );
 }
 
-export default CreateEventPage;
+export default EditEventPage;

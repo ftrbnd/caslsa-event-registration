@@ -123,7 +123,7 @@ export function* onUnsubscribeEvent(action) {
 export function* onCreateEvent(action) {
   yield callApi(createEventRoute, "POST", {
     ageGroup: action.payload.ageGroup,
-    eventGroup: action.payload.ageGroup,
+    eventGroup: action.payload.eventGroup,
     eventName: action.payload.eventName,
     eventDate: action.payload.eventDate,
   });

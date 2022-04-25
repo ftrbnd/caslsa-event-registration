@@ -16,10 +16,12 @@ export const User = ({ user }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (user.roles.includes("admin")) {
-      setRoles("admin");
-    } else {
-      setRoles("user");
+    if (user.roles) {
+      if (user.roles.includes("admin")) {
+        setRoles("admin");
+      } else {
+        setRoles("user");
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
@@ -60,31 +62,44 @@ export const User = ({ user }) => {
     });
   };
 
+  const handleRemove = (event) => {
+    dispatch({
+      type: DELETE_ACCOUNT_ADMIN,
+      payload: {
+        email: user.email,
+      },
+    });
+  };
+
   return (
     <div className="userContainer">
       <div className="d-flex align-items-center">
         <p className="userName">{user.name}</p>
         <p>{user.email}</p>
       </div>
-      <div className="d-flex align-items-center">
-        <div className="userSelect">
-          <FormControl fullWidth>
-            <InputLabel id="roles-simple-select-label">Role</InputLabel>
+      {user.roles ? (
+        <div className="d-flex align-items-center">
+          <div className="userSelect">
+            <FormControl fullWidth>
+              <InputLabel id="roles-simple-select-label">Role</InputLabel>
 
-            <Select
-              labelId="roles-simple-select-label"
-              id="roles-simple-select"
-              label="Roles"
-              onChange={handleChangeRole}
-              value={roles}
-            >
-              <MenuItem value="user">User</MenuItem>
-              <MenuItem value="admin">Admin</MenuItem>
-            </Select>
-          </FormControl>
+              <Select
+                labelId="roles-simple-select-label"
+                id="roles-simple-select"
+                label="Roles"
+                onChange={handleChangeRole}
+                value={roles}
+              >
+                <MenuItem value="user">User</MenuItem>
+                <MenuItem value="admin">Admin</MenuItem>
+              </Select>
+            </FormControl>
+          </div>
+          <Button onClick={handleDelete}>Delete</Button>
         </div>
-        <Button onClick={handleDelete}>Delete</Button>
-      </div>
+      ) : (
+        <Button onClick={handleRemove}>Remove</Button>
+      )}
     </div>
   );
 };
