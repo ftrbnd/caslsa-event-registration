@@ -45,7 +45,7 @@ function LoginPage() {
 
   return (
     <div className="loginPage">
-      <h1>CALSA</h1>
+      <h1>CASLSA</h1>
       <div className="loginForm">
         <div className="formRow">
           <h3>E-mail</h3>
