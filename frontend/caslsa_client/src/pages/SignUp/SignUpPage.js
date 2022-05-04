@@ -45,64 +45,66 @@ function SignUpPage() {
   }
 
   return (
-    <div className="loginPage">
-      <h1>Sign Up</h1>
-      <div className="loginForm">
-        <div className="formRow">
-          <h3>First Name</h3>
-          <TextField
-            required
-            label="First name"
-            variant="outlined"
-            fullWidth
-            inputRef={firstnameRef}
-          />
-        </div>
-        <div className="formRow">
-          <h3>Last Name</h3>
-          <TextField
-            required
-            label="Last name"
-            variant="outlined"
-            fullWidth
-            inputRef={lastnameRef}
-          />
-        </div>
+    <div className="container">
+      <div className="row loginPage">
+        <h1 className="text-center">Sign Up</h1>
+        <div className="loginForm">
+          <div className="formRow">
+            <h3>First Name</h3>
+            <TextField
+              required
+              label="First name"
+              variant="outlined"
+              fullWidth
+              inputRef={firstnameRef}
+            />
+          </div>
+          <div className="formRow">
+            <h3>Last Name</h3>
+            <TextField
+              required
+              label="Last name"
+              variant="outlined"
+              fullWidth
+              inputRef={lastnameRef}
+            />
+          </div>
 
-        <div className="formRow">
-          <h3>E-mail</h3>
-          <TextField
-            id="email"
-            required
-            label="Email"
-            variant="outlined"
-            fullWidth
-            inputRef={emailRef}
-            type="email"
-          />
-        </div>
+          <div className="formRow">
+            <h3>E-mail</h3>
+            <TextField
+              id="email"
+              required
+              label="Email"
+              variant="outlined"
+              fullWidth
+              inputRef={emailRef}
+              type="email"
+            />
+          </div>
 
-        <div className="formRow">
-          <h3>Password</h3>
-          <TextField
-            size="medium"
-            required
-            id="password"
-            label="Password"
-            variant="outlined"
-            fullWidth
-            inputRef={passwordRef}
-            type="password"
-          />
+          <div className="formRow">
+            <h3>Password</h3>
+            <TextField
+              size="medium"
+              required
+              id="password"
+              label="Password"
+              variant="outlined"
+              fullWidth
+              inputRef={passwordRef}
+              type="password"
+            />
+          </div>
         </div>
-      </div>
-      <div className="loginButtons">
-        <Button fullWidth onClick={onSignInPress} variant="contained">
-          Sign Up
-        </Button>
-        <Button fullWidth variant="text" href="/">
-          Already an account ? Log in
-        </Button>
+        <div className="loginButtons">
+          <Button fullWidth onClick={onSignInPress} variant="contained">
+            Sign Up
+          </Button>
+          <Button fullWidth variant="text" className="text-center" href="/">
+            Already an account ? Log in
+          </Button>
+        </div>
       </div>
     </div>
   );

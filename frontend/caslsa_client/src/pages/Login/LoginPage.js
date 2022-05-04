@@ -25,8 +25,8 @@ function LoginPage() {
   }, [isLoadingLogin, errorLogin]);
 
   useEffect(() => {
-    emailRef.current.value = "hugodegrouchy@gmail.com";
-    passwordRef.current.value = "hugo1234";
+    emailRef.current.value = "test@email.com";
+    passwordRef.current.value = "mypass";
   }, []);
 
   function onSignInPress() {
