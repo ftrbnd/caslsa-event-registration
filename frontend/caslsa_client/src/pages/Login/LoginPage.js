@@ -44,42 +44,44 @@ function LoginPage() {
   }
 
   return (
-    <div className="loginPage">
-      <h1>CASLSA</h1>
-      <div className="loginForm">
-        <div className="formRow">
-          <h3>E-mail</h3>
-          <TextField
-            id="email"
-            required
-            label="Email"
-            variant="outlined"
-            fullWidth
-            inputRef={emailRef}
-            type="email"
-          />
+    <div className="container ">
+      <div className="row loginPage">
+        <div className="loginForm">
+          <h1 className="text-center">CASLSA</h1>
+          <div className="formRow">
+            <h3>E-mail</h3>
+            <TextField
+              id="email"
+              required
+              label="Email"
+              variant="outlined"
+              fullWidth
+              inputRef={emailRef}
+              type="email"
+            />
+          </div>
+          <div className="formRow">
+            <h3>Password</h3>
+            <TextField
+              size="medium"
+              required
+              id="password"
+              label="Password"
+              variant="outlined"
+              fullWidth
+              inputRef={passwordRef}
+              type="password"
+            />
+          </div>
         </div>
-        <div className="formRow">
-          <h3>Password</h3>
-          <TextField
-            size="medium"
-            required
-            id="password"
-            label="Password"
-            variant="outlined"
-            fullWidth
-            inputRef={passwordRef}
-            type="password"
-          />
+        <div className="loginButtons">
+          <Button fullWidth onClick={onSignInPress} variant="contained">
+            Sign In
+          </Button>
+          <Button fullWidth variant="text" href="/signup">
+            Sign Up
+          </Button>
         </div>
-      </div>
-      <div className="loginButtons">
-        <Button fullWidth onClick={onSignInPress} variant="contained">
-          Sign In
-        </Button>
-        <Button fullWidth variant="text" href="/signup">
-          Sign Up
-        </Button>
       </div>
     </div>
   );
