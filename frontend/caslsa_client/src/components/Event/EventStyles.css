@@ -4,7 +4,8 @@
   border-radius: 10px;
   display: flex;
   flex-direction: row;
-  height: 80px;
+  padding-top: 20px;
+  padding-bottom: 20px;
   align-items: center;
   justify-content: space-between;
   margin-top: 30px;

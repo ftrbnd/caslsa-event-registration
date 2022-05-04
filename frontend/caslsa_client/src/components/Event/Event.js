@@ -78,7 +78,7 @@ export const Event = ({ event, isSubscribed }) => {
       <p>
         {event.eventName} ({event.ageGroup})
       </p>
-      <div className="d-flex align-items-center">
+      <div className="d-flex flex-wrap align-items-center">
         {isSubscribed ? (
           <p>{moment(event.eventDate).format("MMMM Do YYYY")}</p>
         ) : (
