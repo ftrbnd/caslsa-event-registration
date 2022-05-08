@@ -1,4 +1,11 @@
-import { Button, TextField } from "@mui/material";
+import {
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
@@ -11,6 +18,12 @@ function SignUpPage() {
   const passwordRef = useRef();
   const firstnameRef = useRef();
   const lastnameRef = useRef();
+
+  const [gender, setGender] = useState("");
+  const [memberType, setMemberType] = useState("");
+  const [chapter, setChapter] = useState("");
+
+  const birthdayRef = useRef();
 
   const dispatch = useDispatch();
 
@@ -36,6 +49,9 @@ function SignUpPage() {
         email: emailRef.current.value,
         password: passwordRef.current.value,
         name: firstnameRef.current.value + " " + lastnameRef.current.value,
+        birthdate: birthdayRef.current.value,
+        gender: gender,
+        memberType: memberType,
       },
     });
   }
@@ -45,10 +61,10 @@ function SignUpPage() {
   }
 
   return (
-    <div className="container">
-      <div className="row loginPage">
-        <h1 className="text-center">Sign Up</h1>
-        <div className="loginForm">
+    <div className="container loginPage">
+      <div className="row">
+        <h1 className="text-center col-12">Sign Up</h1>
+        <div className="col-6">
           <div className="formRow">
             <h3>First Name</h3>
             <TextField
@@ -59,6 +75,8 @@ function SignUpPage() {
               inputRef={firstnameRef}
             />
           </div>
+        </div>
+        <div className="col-6">
           <div className="formRow">
             <h3>Last Name</h3>
             <TextField
@@ -69,7 +87,8 @@ function SignUpPage() {
               inputRef={lastnameRef}
             />
           </div>
-
+        </div>
+        <div className="col-6">
           <div className="formRow">
             <h3>E-mail</h3>
             <TextField
@@ -82,7 +101,9 @@ function SignUpPage() {
               type="email"
             />
           </div>
+        </div>
 
+        <div className="col-6">
           <div className="formRow">
             <h3>Password</h3>
             <TextField
@@ -97,14 +118,98 @@ function SignUpPage() {
             />
           </div>
         </div>
-        <div className="loginButtons">
-          <Button fullWidth onClick={onSignInPress} variant="contained">
-            Sign Up
-          </Button>
-          <Button fullWidth variant="text" className="text-center" href="/">
-            Already an account ? Log in
-          </Button>
+        <div className="col-6">
+          <div className="formRow">
+            <h3>Gender</h3>
+            <FormControl fullWidth size="medium">
+              <InputLabel id="gender-select-label">Gender</InputLabel>
+              <Select
+                fullWidth
+                labelId="gender-select-label"
+                id="gender-select-label"
+                label="Gender"
+                onChange={(event) => setGender(event.target.value)}
+                value={gender}
+              >
+                <MenuItem value="male">Male</MenuItem>
+                <MenuItem value="female">Female</MenuItem>
+                <MenuItem value="other">Other</MenuItem>
+              </Select>
+            </FormControl>
+          </div>
         </div>
+        <div className="col-6">
+          <div className="formRow">
+            <h3>Chapter</h3>
+            <FormControl fullWidth size="medium">
+              <InputLabel id="chapter-select-label">Chapter</InputLabel>
+              <Select
+                fullWidth
+                labelId="chapter-select-label"
+                id="chapter-select-label"
+                label="Chapter"
+                onChange={(event) => setChapter(event.target.value)}
+                value={chapter}
+              >
+                <MenuItem value="168">
+                  Aptos La Selva Fire Protection Dept.
+                </MenuItem>
+                <MenuItem value="179">Avila Beach</MenuItem>
+                <MenuItem value="7">California State Lifeguard Assoc</MenuItem>
+                <MenuItem value="10">Capitola Beach Lifeguard Assoc</MenuItem>
+                <MenuItem value="12">Carpinteria</MenuItem>
+              </Select>
+            </FormControl>
+          </div>
+        </div>
+
+        <div className="col-6">
+          <div className="formRow">
+            <h3>Member type</h3>
+            <FormControl fullWidth size="medium">
+              <InputLabel id="member-type-select-label">Member Type</InputLabel>
+              <Select
+                fullWidth
+                labelId="member-type-select-label"
+                id="member-type-select-label"
+                label="Member Type"
+                onChange={(event) => setMemberType(event.target.value)}
+                value={memberType}
+              >
+                <MenuItem value="Professional Lifeguard">
+                  Professional Lifeguard
+                </MenuItem>
+                <MenuItem value="Lifeguard Alumni">Lifeguard Alumni</MenuItem>
+                <MenuItem value="Professional or Junior Guard">
+                  Professional or Junior Guard
+                </MenuItem>
+                <MenuItem value="Junior Lifeguard">Junior Lifeguard</MenuItem>
+              </Select>
+            </FormControl>
+          </div>
+        </div>
+        <div className="col-6">
+          <div className="formRow">
+            <h3>Date of birth</h3>
+            <TextField
+              id="date"
+              required
+              label="Date of birth"
+              variant="outlined"
+              fullWidth
+              inputRef={birthdayRef}
+              type="date"
+            />
+          </div>
+        </div>
+      </div>
+      <div className="col-12 formRow loginButtons">
+        <Button fullWidth onClick={onSignInPress} variant="contained">
+          Sign Up
+        </Button>
+        <Button fullWidth variant="text" className="text-center" href="/">
+          Already an account ? Log in
+        </Button>
       </div>
     </div>
   );

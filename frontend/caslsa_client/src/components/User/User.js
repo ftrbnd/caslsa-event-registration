@@ -78,7 +78,7 @@ export const User = ({ user }) => {
   };
 
   return (
-    <div className="userContainer">
+    <div className="col-12 userContainer">
       <div className="d-flex align-items-center">
         <p className="userName">{user.name}</p>
         <p>{user.email}</p>

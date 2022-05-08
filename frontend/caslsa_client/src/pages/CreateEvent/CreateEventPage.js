@@ -64,17 +64,6 @@ function CreateEventPage() {
               />
             </div>
             <div className="formRow">
-              <h3 className="formInputTitle">Event name</h3>
-              <TextField
-                id="name"
-                required
-                label="Event name"
-                variant="outlined"
-                fullWidth
-                inputRef={nameRef}
-              />
-            </div>
-            <div className="formRow">
               <h3 className="formInputTitle">Event group</h3>
               <TextField
                 id="group"
@@ -85,6 +74,18 @@ function CreateEventPage() {
                 inputRef={groupRef}
               />
             </div>
+            <div className="formRow">
+              <h3 className="formInputTitle">Event name</h3>
+              <TextField
+                id="name"
+                required
+                label="Event name"
+                variant="outlined"
+                fullWidth
+                inputRef={nameRef}
+              />
+            </div>
+
             <div className="formRow">
               <h3 className="formInputTitle">Event date</h3>
               <TextField
