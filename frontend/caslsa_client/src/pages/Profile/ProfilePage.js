@@ -44,6 +44,8 @@ function ProfilePage() {
     return <Navigate to="/" />;
   }
 
+  console.log(user);
+
   return (
     <div>
       <Header />
@@ -62,14 +64,29 @@ function ProfilePage() {
           <p>{user.name}</p>
         </div>
         <div className="formRow">
+          <h4>Date of Birth</h4>
+          {user.birthdate}
+        </div>
+        <div className="formRow">
           <h4>Email</h4>
           <p>{user.email}</p>
         </div>
         <div className="formRow">
-          <h4>Roles</h4>
+          <h4>Role</h4>
           {user.roles.map((role, index) => {
             return <p key={index}>{role}</p>;
           })}
+        </div>
+        <div className="formRow">
+          <h4>Chapter</h4>
+          {user.roles.map((role, index) => {
+            return <p key={index}>{role}</p>;
+          })}
+        </div>
+
+        <div className="formRow">
+          <h4>Member Type</h4>
+          {user.memberType}
         </div>
       </div>
     </div>

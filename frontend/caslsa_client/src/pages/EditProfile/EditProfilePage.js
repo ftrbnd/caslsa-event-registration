@@ -1,4 +1,11 @@
-import { Button, TextField } from "@mui/material";
+import {
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Header } from "../../components/Header/Header";
@@ -11,11 +18,15 @@ import { Navigate } from "react-router-dom";
 function EditProfilePage() {
   const emailRef = useRef();
   const nameRef = useRef();
+  const birthRef = useRef();
 
   const dispatch = useDispatch();
   const { user, isLoadingEdit, errorEdit } = useSelector((state) => state.user);
 
   const [editRedirect, setEditRedirect] = useState(false);
+  const [gender, setGender] = useState("");
+  const [memberType, setMemberType] = useState("");
+  const [chapter, setChapter] = useState("");
 
   const previousLoading = usePrevious(isLoadingEdit);
 
@@ -29,6 +40,16 @@ function EditProfilePage() {
   useEffect(() => {
     emailRef.current.value = user.email;
     nameRef.current.value = user.name;
+    birthRef.current.value = user.birthdate ? user.birthdate : "";
+    if (user.memberType) {
+      setMemberType(user.memberType);
+    }
+    if (user.chatper) {
+      setChapter(user.chapter);
+    }
+    if (user.gender) {
+      setGender(user.gender);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -38,6 +59,10 @@ function EditProfilePage() {
       payload: {
         email: emailRef.current.value,
         name: nameRef.current.value,
+        birthdate: birthRef.current.value,
+        memberType: memberType,
+        gender: gender,
+        chapter: chapter,
       },
     });
   };
@@ -74,6 +99,74 @@ function EditProfilePage() {
               inputRef={nameRef}
               type="name"
             />
+            <h4 className="editProfileTitle">Date of Birth</h4>
+            <TextField
+              id="birthdate"
+              required
+              label="Date of Birth"
+              variant="outlined"
+              fullWidth
+              inputRef={birthRef}
+              type="date"
+            />
+            <h4 className="editProfileTitle">Gender</h4>
+            <FormControl fullWidth size="medium">
+              <InputLabel id="gender-select-label">Gender</InputLabel>
+              <Select
+                fullWidth
+                labelId="gender-select-label"
+                id="gender-select-label"
+                label="Gender"
+                onChange={(event) => setGender(event.target.value)}
+                value={gender}
+              >
+                <MenuItem value="male">Male</MenuItem>
+                <MenuItem value="female">Female</MenuItem>
+                <MenuItem value="other">Other</MenuItem>
+              </Select>
+            </FormControl>
+            <h4 className="editProfileTitle">Member Type</h4>
+
+            <FormControl fullWidth size="medium">
+              <InputLabel id="member-type-select-label">Member Type</InputLabel>
+              <Select
+                fullWidth
+                labelId="member-type-select-label"
+                id="member-type-select-label"
+                label="Member Type"
+                onChange={(event) => setMemberType(event.target.value)}
+                value={memberType}
+              >
+                <MenuItem value="Professional Lifeguard">
+                  Professional Lifeguard
+                </MenuItem>
+                <MenuItem value="Lifeguard Alumni">Lifeguard Alumni</MenuItem>
+                <MenuItem value="Professional or Junior Guard">
+                  Professional or Junior Guard
+                </MenuItem>
+                <MenuItem value="Junior Lifeguard">Junior Lifeguard</MenuItem>
+              </Select>
+            </FormControl>
+            <h4 className="editProfileTitle">Chapter</h4>
+            <FormControl fullWidth size="medium">
+              <InputLabel id="chapter-select-label">Chapter</InputLabel>
+              <Select
+                fullWidth
+                labelId="chapter-select-label"
+                id="chapter-select-label"
+                label="Chapter"
+                onChange={(event) => setChapter(event.target.value)}
+                value={chapter}
+              >
+                <MenuItem value="168">
+                  Aptos La Selva Fire Protection Dept.
+                </MenuItem>
+                <MenuItem value="179">Avila Beach</MenuItem>
+                <MenuItem value="7">California State Lifeguard Assoc</MenuItem>
+                <MenuItem value="10">Capitola Beach Lifeguard Assoc</MenuItem>
+                <MenuItem value="12">Carpinteria</MenuItem>
+              </Select>
+            </FormControl>
             <div className="editProfileButton">
               <Button onClick={editProfile} variant="contained" fullWidth>
                 Update
