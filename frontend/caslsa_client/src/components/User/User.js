@@ -78,34 +78,40 @@ export const User = ({ user }) => {
   };
 
   return (
-    <div className="col-12 userContainer">
-      <div className="d-flex align-items-center">
-        <p className="userName">{user.name}</p>
-        <p>{user.email}</p>
-      </div>
-      {user.roles ? (
-        <div className="d-flex align-items-center">
-          <div className="userSelect">
-            <FormControl fullWidth>
-              <InputLabel id="roles-simple-select-label">Role</InputLabel>
-
-              <Select
-                labelId="roles-simple-select-label"
-                id="roles-simple-select"
-                label="Roles"
-                onChange={handleChangeRole}
-                value={roles}
-              >
-                <MenuItem value="user">User</MenuItem>
-                <MenuItem value="admin">Admin</MenuItem>
-              </Select>
-            </FormControl>
+    <div className="col-12 ">
+      <div className="row userContainer">
+        <div className="col-12 col-md-6">
+          <div className="d-flex align-items-center">
+            <p className="userName">{user.name}</p>
+            <p>{user.email}</p>
           </div>
-          <Button onClick={handleDelete}>Delete</Button>
         </div>
-      ) : (
-        <Button onClick={handleRemove}>Remove</Button>
-      )}
+        <div className="col-12 col-md-6">
+          {user.roles ? (
+            <div className="d-flex flex-wrap align-items-center justify-content-start  justify-content-md-end">
+              <div className="userSelect">
+                <FormControl fullWidth>
+                  <InputLabel id="roles-simple-select-label">Role</InputLabel>
+
+                  <Select
+                    labelId="roles-simple-select-label"
+                    id="roles-simple-select"
+                    label="Roles"
+                    onChange={handleChangeRole}
+                    value={roles}
+                  >
+                    <MenuItem value="user">User</MenuItem>
+                    <MenuItem value="admin">Admin</MenuItem>
+                  </Select>
+                </FormControl>
+              </div>
+              <Button onClick={handleDelete}>Delete</Button>
+            </div>
+          ) : (
+            <Button onClick={handleRemove}>Remove</Button>
+          )}
+        </div>
+      </div>
     </div>
   );
 };
