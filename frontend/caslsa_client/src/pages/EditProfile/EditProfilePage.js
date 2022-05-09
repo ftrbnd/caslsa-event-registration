@@ -14,6 +14,7 @@ import illustration from "../../assets/surf.jpg";
 import { EDIT_ACCOUNT } from "../../redux/actionTypes/user";
 import usePrevious from "../../hooks/usePrevious";
 import { Navigate } from "react-router-dom";
+import moment from "moment";
 
 function EditProfilePage() {
   const emailRef = useRef();
@@ -40,11 +41,11 @@ function EditProfilePage() {
   useEffect(() => {
     emailRef.current.value = user.email;
     nameRef.current.value = user.name;
-    birthRef.current.value = user.birthdate ? user.birthdate : "";
+    birthRef.current.value = user.birthdate ? moment(user.birthdate) : "";
     if (user.memberType) {
       setMemberType(user.memberType);
     }
-    if (user.chatper) {
+    if (user.chapter) {
       setChapter(user.chapter);
     }
     if (user.gender) {
@@ -120,9 +121,9 @@ function EditProfilePage() {
                 onChange={(event) => setGender(event.target.value)}
                 value={gender}
               >
-                <MenuItem value="male">Male</MenuItem>
-                <MenuItem value="female">Female</MenuItem>
-                <MenuItem value="other">Other</MenuItem>
+                <MenuItem value="Male">Male</MenuItem>
+                <MenuItem value="Female">Female</MenuItem>
+                <MenuItem value="Other">Other</MenuItem>
               </Select>
             </FormControl>
             <h4 className="editProfileTitle">Member Type</h4>

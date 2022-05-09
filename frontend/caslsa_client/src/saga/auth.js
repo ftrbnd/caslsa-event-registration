@@ -49,6 +49,10 @@ export function* onRegister(action) {
     email: action.payload.email,
     password: action.payload.password,
     name: action.payload.name,
+    birthdate: action.payload.birthdate,
+    gender: action.payload.gender,
+    memberType: action.payload.memberType,
+    agencyId: action.payload.chapter,
   });
 
   try {

@@ -52,6 +52,7 @@ function SignUpPage() {
         birthdate: birthdayRef.current.value,
         gender: gender,
         memberType: memberType,
+        chapter: parseInt(chapter),
       },
     });
   }
@@ -131,9 +132,9 @@ function SignUpPage() {
                 onChange={(event) => setGender(event.target.value)}
                 value={gender}
               >
-                <MenuItem value="male">Male</MenuItem>
-                <MenuItem value="female">Female</MenuItem>
-                <MenuItem value="other">Other</MenuItem>
+                <MenuItem value="Male">Male</MenuItem>
+                <MenuItem value="Female">Female</MenuItem>
+                <MenuItem value="Other">Other</MenuItem>
               </Select>
             </FormControl>
           </div>

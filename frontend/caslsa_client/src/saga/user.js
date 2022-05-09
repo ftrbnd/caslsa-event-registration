@@ -40,6 +40,10 @@ export function* onGetAccount(action) {
           name: response.name,
           email: response.email,
           roles: response.roles,
+          chapter: response.agencyId,
+          birthdate: response.birthdate,
+          memberType: response.memberType,
+          gender: response.gender,
           _id: response._id,
           events: response.events,
         },
@@ -64,6 +68,10 @@ export function* onEditAccount(action) {
   yield callApi(getAccountRoute, "PATCH", {
     email: action.payload.email,
     name: action.payload.name,
+    birthdate: action.payload.birthdate,
+    gender: action.payload.gender,
+    memberType: action.payload.memberType,
+    agencyId: action.payload.chapter,
   });
 
   try {

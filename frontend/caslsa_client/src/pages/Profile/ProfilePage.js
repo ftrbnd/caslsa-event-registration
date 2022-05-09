@@ -6,6 +6,15 @@ import { Header } from "../../components/Header/Header";
 import usePrevious from "../../hooks/usePrevious";
 import { DELETE_ACCOUNT } from "../../redux/actionTypes/user";
 import "./ProfileStyles.css";
+import moment from "moment";
+
+const chapterMap = {
+  168: "Aptos La Selva Fire Protection Dept",
+  179: "Avila Beach",
+  7: "California State Lifeguard Assoc",
+  10: "Capitola Beach Lifeguard Assoc",
+  12: "Carpinteria",
+};
 
 function ProfilePage() {
   const { user, isLoadingDelete, errorDelete } = useSelector(
@@ -44,8 +53,6 @@ function ProfilePage() {
     return <Navigate to="/" />;
   }
 
-  console.log(user);
-
   return (
     <div>
       <Header />
@@ -65,7 +72,7 @@ function ProfilePage() {
         </div>
         <div className="formRow">
           <h4>Date of Birth</h4>
-          {user.birthdate}
+          {moment(user.birthdate).format("MM/DD/YYYY")}
         </div>
         <div className="formRow">
           <h4>Email</h4>
@@ -79,9 +86,7 @@ function ProfilePage() {
         </div>
         <div className="formRow">
           <h4>Chapter</h4>
-          {user.roles.map((role, index) => {
-            return <p key={index}>{role}</p>;
-          })}
+          {chapterMap[user.chapter]}
         </div>
 
         <div className="formRow">
