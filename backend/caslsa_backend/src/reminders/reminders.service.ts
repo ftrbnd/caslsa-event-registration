@@ -60,7 +60,7 @@ export class RemindersService {
       ) {
         for (const id of event.users) {
           const user = await this.userModel.findById(id);
-          if (!user) continue;
+          if (!user || !user.reminder) continue;
           const emailOptions = {
             from: process.env.EMAIL,
             to: user.email,

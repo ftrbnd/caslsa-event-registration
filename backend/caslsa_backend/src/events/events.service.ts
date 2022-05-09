@@ -174,4 +174,20 @@ export class EventsService {
       throw new InternalServerErrorException();
     }
   }
+
+  public async reminders(email: string) {
+    if (!email) throw new UnauthorizedException('Bearer not found');
+    const user = await this.userModel.findOne({ email });
+    if (!user) throw new UnauthorizedException();
+    let returnString = '';
+    if (user.reminder) {
+      user.reminder = false;
+      returnString = 'Reminders disabled';
+    } else {
+      user.reminder = true;
+      returnString = 'Reminders enabled';
+    }
+    await user.save();
+    return { success: returnString };
+  }
 }

@@ -17,6 +17,7 @@ import { Roles } from 'src/core/decorators/role.decorator';
 import { Role } from 'src/core/enums/role.enum';
 import { JwtAuthGuard } from 'src/core/guards/jwt-auth.guard';
 import { ForceUnsubscribeDTO } from './dto/force-unsubsribe.dto';
+import { request } from 'http';
 
 @ApiTags('Event')
 @Controller('events')
@@ -111,5 +112,16 @@ export class EventsController {
   @UseGuards(JwtAuthGuard)
   async forceUnsubscribe(@Body() body: ForceUnsubscribeDTO) {
     return await this.eventsService.forceUnsubscribe(body);
+  }
+
+  @ApiOperation({
+    summary: 'Disable/Enable event reminders for a user',
+  })
+  @ApiBearerAuth()
+  @Post('/reminders')
+  @Roles(Role.Admin, Role.User)
+  @UseGuards(JwtAuthGuard)
+  async reminders(@Req() request) {
+    return await this.eventsService.reminders(request.user);
   }
 }
