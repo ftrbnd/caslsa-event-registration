@@ -11,7 +11,7 @@ export const Header = () => {
       <div className="container">
         <div className="row">
           <div className="col-3 titleContainer">
-            <p className="title">CASLSA</p>
+            <p className="title">CSLSA</p>
           </div>
           <div className="col-9 linkContainer">
             <Link className="link" to="/events">

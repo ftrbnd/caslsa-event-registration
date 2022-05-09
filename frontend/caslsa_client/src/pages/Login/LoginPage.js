@@ -47,7 +47,7 @@ function LoginPage() {
     <div className="container ">
       <div className="row loginPage">
         <div className="loginForm">
-          <h1 className="text-center">CASLSA</h1>
+          <h1 className="text-center">CSLSA</h1>
           <div className="formRow">
             <h3>E-mail</h3>
             <TextField
