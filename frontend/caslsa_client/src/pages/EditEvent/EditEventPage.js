@@ -31,17 +31,6 @@ function EditEventPage() {
               />
             </div>
             <div className="formRow">
-              <h3 className="formInputTitle">Event name</h3>
-              <TextField
-                id="name"
-                required
-                label="Event name"
-                variant="outlined"
-                fullWidth
-                inputRef={nameRef}
-              />
-            </div>
-            <div className="formRow">
               <h3 className="formInputTitle">Event group</h3>
               <TextField
                 id="group"
@@ -50,6 +39,17 @@ function EditEventPage() {
                 variant="outlined"
                 fullWidth
                 inputRef={groupRef}
+              />
+            </div>
+            <div className="formRow">
+              <h3 className="formInputTitle">Event name</h3>
+              <TextField
+                id="name"
+                required
+                label="Event name"
+                variant="outlined"
+                fullWidth
+                inputRef={nameRef}
               />
             </div>
             <div className="formRow">

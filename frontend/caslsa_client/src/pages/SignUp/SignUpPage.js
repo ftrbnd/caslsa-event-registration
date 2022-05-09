@@ -209,7 +209,7 @@ function SignUpPage() {
           Sign Up
         </Button>
         <Button fullWidth variant="text" className="text-center" href="/">
-          Already an account ? Log in
+          Already registered? Log in
         </Button>
       </div>
     </div>

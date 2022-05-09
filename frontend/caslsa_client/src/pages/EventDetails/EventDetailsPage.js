@@ -35,12 +35,12 @@ function EventDetailsPage() {
           <p>{specificEvent.ageGroup}</p>
         </div>
         <div className="formRow">
-          <h4>Event name</h4>
-          <p>{specificEvent.eventName}</p>
-        </div>
-        <div className="formRow">
           <h4>Event group</h4>
           <p>{specificEvent.eventGroup}</p>
+        </div>
+        <div className="formRow">
+          <h4>Event name</h4>
+          <p>{specificEvent.eventName}</p>
         </div>
         <div className="formRow">
           <h4>Event date</h4>
